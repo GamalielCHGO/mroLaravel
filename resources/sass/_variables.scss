@@ -1,0 +1,134 @@
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-family-sans-serif: 'Nunito', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+$primary: #83B5B0;
+$blue:    #83B5B0;
+$enable-responsive-font-sizes: true;
+$enable-gradients: true;
+
+:root {
+    --main-bg-color: linear-gradient(0deg, rgba(170,223,219,1) 0%, rgba(110,148,145,1) 51%, rgba(131,181,176,1) 94%);
+    --main-color: #83B5B0;
+    --selected-items: #6E9491;
+    --primary : #6E9491
+    --enable-responsive-font-sizes: true;
+    --enable-gradients: true;
+    --bs-body-font-family:'sans-serif';
+  }
+
+
+  
+  .colorFondo
+  {
+    background: var(--main-bg-color);
+  }
+
+
+  .iconos{
+    margin-left: 5vw;
+  }
+  .iconos > li> a{
+    margin: 0 3.5vw;
+    color: white;
+    padding: 15px 8px;  
+  }
+
+  .iconos > li{
+    border: solid 2px white;
+    border-radius: 15px;
+    margin: 5px;
+    transition: all 1s;
+  }
+  .iconos > li:hover{
+    border: solid 2px white;
+    border-radius: 15px;
+    margin: 5px;
+    background-color: var(--selected-items);
+    transform: scale(1.1);
+  }
+
+  .navTitle
+  {
+    margin-left: 3vw;
+  }
+
+  
+        
+.btn-primari{
+    background: var(--main-color);
+    color: white;
+    transition: all 1s;
+}
+.btn-primari:hover {
+    background-color: var(--selected-items);
+    transform: scale(1.1);
+    color: white;
+}
+.btn-primari:active {
+    background-color: var(--main-color)!important;
+    transform: scale(0.9);
+    color: white;
+}
+.activa{
+    background-color: var(--selected-items)!important;
+    color: white;
+}
+.textoPrincipal{
+    background-color: white;
+    color: var(--selected-items)!important;
+}
+.inicioMargin{
+    margin-top: 11vh;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+  }
+
+
+  @media screen and (min-width:576px  ) and (max-width: 768px){
+
+    .carrito{
+        display: none;
+    }
+    
+}
+@media screen and (max-width:576px  ){
+
+    .carritoPeque{
+        display: none;
+    }
+    
+}
+
+.lista{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.listaUno{
+    max-width: 30%;
+}
+.listaDos{
+    max-width: 70%;
+}
+.lista > div> img{
+    width: 10vw;
+}
+
+.imagenInicio
+{
+    width: 20%;
+}
