@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -15,13 +16,15 @@ return new class extends Migration
     {
         Schema::create('tb_solicitudes', function (Blueprint $table) {
             $table->id();
-            $table->string('solicitud');
+            $table->string('tipo');
             $table->string('usuario');
-            $table->string('username');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->timestamp('fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->string('estado')->default('O');
+            $table->timestamp('fecha_entrega')->nullable();
+            $table->string('usuario_entrega')->nullable();
+            $table->timestamp('fecha_reporte')->nullable();
+            $table->string('detalles')->nullable();
+            $table->string('departamento')->nullable();
             $table->timestamps();
         });
     }

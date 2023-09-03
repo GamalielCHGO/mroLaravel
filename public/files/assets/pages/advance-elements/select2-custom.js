@@ -202,8 +202,8 @@ $(document).ready(function(){
     //     enableCollapsibleOptGroups: true
     // });
     $('.searchable').multiSelect({
-        selectableHeader: "<input type='text' class='form-control' autocomplete='off' placeholder='try \"12\"'>",
-        selectionHeader: "<input type='text' class='form-control' autocomplete='off' placeholder='try \"4\"'>",
+        selectableHeader: "<input type='text' class='form-control' autocomplete='off' placeholder='Selecciona para incluir'>",
+        selectionHeader: "<input type='text' class='form-control' autocomplete='off' placeholder='Selecciona para excluir'>",
         afterInit: function(ms) {
             var that = this,
                 $selectableSearch = that.$selectableUl.prev(),

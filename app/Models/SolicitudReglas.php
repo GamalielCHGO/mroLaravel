@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class SolicitudReglas extends Model
+{
+    use HasFactory;
+    protected $table = 'tb_solicitud_reglas';
+
+    /**
+    * The attributes that are mass assignable.
+    *
+    * @var array<int, string>
+    */
+   protected $fillable = [
+       'tipo',
+       'aprobador',
+   ];
+}

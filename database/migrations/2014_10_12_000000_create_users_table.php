@@ -16,11 +16,14 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('role');
-            $table->string('username');
+            $table->string('lastname');
+            $table->string('role')->default('ADMIN');
+            $table->string('username')->default('ADMIN');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->integer('sap')->default('70030647');
+            $table->string('idSupervisor')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

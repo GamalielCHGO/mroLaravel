@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Solicitud;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class HomeController extends Controller
 {
@@ -15,7 +19,6 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-
     /**
      * Show the application dashboard.
      *
@@ -23,7 +26,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $userId=Auth::user()->id;
+        return view('home',[
+            'cantidadCarrito'=>DB::table('elementoscarrito')->where('usuario','=',$userId)
+            ->where('estado','=','O')
+            ->count(),
+            'listaSolicitudes'=>Solicitud::where('usuario','=',$userId)->get(),
+        ]);
     }
 
     public function base()
@@ -60,6 +69,19 @@ class HomeController extends Controller
     public function conciliacion()
     {
         return view('conciliacion');
+    }
+
+
+    public function configurar()
+    {
+        if (Gate::allows('configuracion'))
+        {
+            return view('configurar');
+        }
+        else
+        {
+            return view('home');
+        }
     }
 
     

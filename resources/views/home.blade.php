@@ -7,7 +7,7 @@
             <p class="text-center fw-bold display-2 text-primary">Bienvenid@ al sistema Vales electrónicos</p>
         </div>
         
-        <!-- bug list card start -->
+        <!-- tabla de solicitudes -->
         <div class="card">
             <div class="card-header">
                 <h5>Historico de solicitudes</h5>
@@ -24,42 +24,47 @@
                                 <th>#ID</th>
                                 <th>Usuario</th>
                                 <th>Fecha</th>
+                                <th>Tipo</th>
+                                <th>Detalles</th>
+                                <th>Departamento</th>
                                 <th>Estado</th>
+                                <th>Visualizar</th>
                             </tr>
                         </thead>
                         <tbody class="text-start">
-                            <tr>
-                                <td>1234</td>
-                                <td>RFM7201</td>
-                                <td>1/01/2023</td>
-                                <td><span
-                                    class="label label-primary">Abierto</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1234</td>
-                                <td>RFM7201</td>
-                                <td>1/01/2023</td>
-                                <td><span
-                                    class="label label-danger">Cerrado</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1234</td>
-                                <td>RFM7201</td>
-                                <td>1/01/2023</td>
-                                <td><span
-                                    class="label label-info">Pendiente Autor</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1234</td>
-                                <td>RFM7201</td>
-                                <td>1/01/2023</td>
-                                <td><span
-                                    class="label label-warning">Pendiente entrega</span>
-                                </td>
-                            </tr>
+                            @forelse ($listaSolicitudes as $item)
+                                <tr>
+                                    <td>{{$item->id}}</td>
+                                    <td>{{Auth::user()->username}}</td>
+                                    <td>{{$item->fecha_creacion}}</td>
+                                    <td>{{$item->tipo}}</td>
+                                    <td>{{$item->detalles}}</td>
+                                    <td>{{$item->departamento}}</td>
+                                    @switch($item->estado)
+                                        @case('O')
+                                            <td><span class="label label-primary">Abierto</span>
+                                            <td><a href="{{route('crearSolicitud')}}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
+                                            </td>
+                                            @break
+                                        @case('E')
+                                            <td><span class="label label-info">Esperando aprobacion</span>
+                                            <td><a href=""><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
+                                            </td>
+                                            @break
+                                        @case('A')
+                                            <td><span class="label label-warning">Aprobada</span>
+                                            <td><a href=""><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
+                                            </td>
+                                            @break
+                                        @default
+                                            <td><span class="label label-danger">Entregada</span>
+                                            <td><a href=""><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
+                                            </td>
+                                    @endswitch
+                                </tr>
+                            @empty
+                                No tienes solicitudes creadas
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
