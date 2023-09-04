@@ -64,12 +64,14 @@ class ElementosSolicitudController extends Controller
         ]);
         
 
-        return view('solicitud.solicitud',[
-            'solicitud'=>Solicitud::where('id','=',$request['idSolicitud'])->get(),
-            'estaciones'=>Estacion::where('estado','=','E')->get(),
-            'articulosCarrito'=>DB::table('elementoscarrito')->where('id_Solicitud','=',$request['idSolicitud'])->get(),
-            'status'=>'El articulo fue agregado al carrito'
-        ]);
+        // return view('solicitud.solicitud',[
+        //     'solicitud'=>Solicitud::where('id','=',$request['idSolicitud'])->get(),
+        //     'estaciones'=>Estacion::where('estado','=','E')->get(),
+        //     'articulosCarrito'=>DB::table('elementoscarrito')->where('id_Solicitud','=',$request['idSolicitud'])->get(),
+        //     'status'=>'El articulo fue agregado al carrito'
+        // ]);
+        return redirect()->route('crearSolicitud')->with('status','El articulo fue agregado con exito');
+
 
     }
 
