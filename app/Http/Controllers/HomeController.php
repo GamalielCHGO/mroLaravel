@@ -31,7 +31,7 @@ class HomeController extends Controller
             'cantidadCarrito'=>DB::table('elementoscarrito')->where('usuario','=',$userId)
             ->where('estado','=','O')
             ->count(),
-            'listaSolicitudes'=>Solicitud::where('usuario','=',$userId)->get(),
+            'listaSolicitudes'=>Solicitud::where('usuario','=',$userId)->latest('fecha_creacion')->get(),
         ]);
     }
 

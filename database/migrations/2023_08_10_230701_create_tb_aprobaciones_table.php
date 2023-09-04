@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('idUsuario');
             $table->string('idAprobador');
             $table->string('estado')->default('P');
-            $table->timestamp('fechaAprobacion')->default(now());
+            $table->timestamp('fechaAprobacion')->nullable();
             $table->timestamps();
         });
     }

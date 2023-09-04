@@ -42,23 +42,21 @@
                                     <td>{{$item->departamento}}</td>
                                     @switch($item->estado)
                                         @case('O')
-                                            <td><span class="label label-primary">Abierto</span>
+                                            <td><span class="label label-primary">Abierto</span></td>
                                             <td><a href="{{route('crearSolicitud')}}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
-                                            </td>
                                             @break
                                         @case('E')
-                                            <td><span class="label label-info">Esperando aprobacion</span>
-                                            <td><a href=""><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
-                                            </td>
+                                            <td><span class="label label-info">Esperando aprobacion</span></td>
+                                            <td><a href="{{route('solicitudLectura',$item->id) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
                                             @break
                                         @case('A')
                                             <td><span class="label label-warning">Aprobada</span>
-                                            <td><a href=""><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
+                                            <td><a href="{{route('solicitudLectura',$item->id) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
                                             </td>
                                             @break
                                         @default
                                             <td><span class="label label-danger">Entregada</span>
-                                            <td><a href=""><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
+                                            <td><a href="{{route('solicitudLectura',$item->id) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
                                             </td>
                                     @endswitch
                                 </tr>

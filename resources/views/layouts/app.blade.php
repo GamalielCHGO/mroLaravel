@@ -328,8 +328,8 @@
 
                                     </li>
                                 @endcan
-                                <li class=" {{ request()->routeIs('aprobaciones') ? 'active' : '' }}">
-                                    <a href="{{ route('aprobaciones') }}">
+                                <li class=" {{ request()->routeIs('pendienteAprobacion') ? 'active' : '' }}">
+                                    <a href="{{ route('pendienteAprobacion') }}">
                                         <span class="pcoded-micon"><i class="icofont icofont-tick-boxed"></i></span>
                                         <span class="pcoded-mtext">Aprobaciones</span>
                                     </a>

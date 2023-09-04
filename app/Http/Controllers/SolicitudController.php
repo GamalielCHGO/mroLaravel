@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aprobacion;
 use App\Models\Departamento;
 use App\Models\Solicitud;
 use App\Models\Estacion;
@@ -153,7 +154,7 @@ class SolicitudController extends Controller
             'cantidadCarrito'=>DB::table('elementoscarrito')->where('usuario','=',$userId)
             ->where('estado','=','O')
             ->count(),
-            'listaSolicitudes'=>Solicitud::where('usuario','=',$userId)->get(),
+            'listaSolicitudes'=>Solicitud::where('usuario','=',$userId)->orderBy('fecha_creacion','desc')->get(),
         ]);
     }
 
@@ -190,4 +191,16 @@ class SolicitudController extends Controller
     {
         //
     }
+
+    public function solicitudLectura($idSolicitud)
+    {
+        $userId=Auth::user()->id;
+        return view('solicitud.solicitudLectura',[
+            'cantidadCarrito'=>DB::table('elementoscarrito')->where('id_solicitud','=',$idSolicitud)
+            ->count(),
+            'articulosCarrito'=>DB::table('elementoscarrito')->where('id_solicitud','=',$idSolicitud)->get(),
+            'aprobador'=>Aprobacion::where('idSolicitud','=',$idSolicitud)->first(),
+        ]);
+    }
 }
+

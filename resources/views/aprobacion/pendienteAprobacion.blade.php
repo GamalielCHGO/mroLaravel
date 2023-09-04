@@ -24,24 +24,25 @@
                                 <th>ID</th>
                                 <th>Fecha</th>
                                 <th>Usuario</th>
-                                <th>SAP</th>
-                                <th>Estacion</th>
+                                <th>Tipo</th>
+                                <th>Departamento</th>
                                 <th>Revisar</th>
                                 <th>Aprobar</th>
                                 <th>Rechazar</th>
                             </tr>
                         </thead>
                         <tbody class="text-start">
+                            @forelse ($aprobaciones as $item)
                             <tr>
                                 <td class="pro-list-img">
-                                    12345
+                                    {{$item->id}}
                                 </td>
                                 <td class="pro-name">
-                                    10-08-2023
+                                    {{$item->created_at}}
                                 </td>
-                                <td>RFM7201</td>
-                                <td>700xxxxx</td>
-                                <td>Dobladora 1</td>
+                                <td>{{$item->username}}</td>
+                                <td>{{$item->tipo}}</td>
+                                <td>{{$item->departamento}}</td>
                                 <td>
                                     <button type="button"
                                     class="btn btn-warning btn-outline-warning waves-effect md-trigger"
@@ -58,58 +59,10 @@
                                     onclick="#"><i class="icofont icofont-close fs-5"></i></button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="pro-list-img">
-                                    12345
-                                </td>
-                                <td class="pro-name">
-                                    10-08-2023
-                                </td>
-                                <td>ABRAGARC</td>
-                                <td>700xxxxx</td>
-                                <td>Dobladora 2</td>
-                                <td>
-                                    <button type="button"
-                                    class="btn btn-warning btn-outline-warning waves-effect md-trigger"
-                                    data-bs-toggle="modal" data-bs-target="#Modal-overflow2"><i class="icofont icofont-eye-blocked fs-5"></i></button>
-                                </td>
-                                <td>
-                                    <button type="button"
-                                    class="btn btn-success alert-success-msg m-b-10"
-                                    onclick="#"><i class="icofont icofont-tick-mark fs-5"></i></button>
-                                </td>
-                                <td>
-                                    <button type="button"
-                                    class="btn btn-danger alert-danger-msg m-b-10"
-                                    onclick="#"><i class="icofont icofont-close fs-5"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="pro-list-img">
-                                    12345
-                                </td>
-                                <td class="pro-name">
-                                    10-08-2023
-                                </td>
-                                <td>HUGONIEV</td>
-                                <td>700xxxxx</td>
-                                <td>Dobladora 3</td>
-                                <td>
-                                    <button type="button"
-                                    class="btn btn-warning btn-outline-warning waves-effect md-trigger"
-                                    data-bs-toggle="modal" data-bs-target="#Modal-overflow3"><i class="icofont icofont-eye-blocked fs-5"></i></button>
-                                </td>
-                                <td>
-                                    <button type="button"
-                                    class="btn btn-success alert-success-msg m-b-10"
-                                    onclick="#"><i class="icofont icofont-tick-mark fs-5"></i></button>
-                                </td>
-                                <td>
-                                    <button type="button"
-                                    class="btn btn-danger alert-danger-msg m-b-10"
-                                    onclick="#"><i class="icofont icofont-close fs-5"></i></button>
-                                </td>
-                            </tr>
+                            @empty
+                                {{"No tienes aprobaciones asignadas"}}
+                            @endforelse
+                            
                         </tbody>
                     </table>
                 </div>

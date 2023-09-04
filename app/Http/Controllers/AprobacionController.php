@@ -21,43 +21,82 @@ class AprobacionController extends Controller
      */
     public function index(Request $request)
     {
+        $userId=Auth::user()->id;
         $solicitud = DB::table('elementoscarrito')
             ->where('id_solicitud','=',$request['idSolicitud'])->get();
+            if (sizeof($solicitud)==0)
+            {
+                $total= Solicitud::where('estado','=','O')
+                        ->where('usuario','=',$userId)
+                        ->get();
+
+                return view('solicitud.solicitud',[
+                    'error'=>"Error no hay articulos en tu carrito",
+                    'cantidadCarrito'=>sizeof($total),
+                    'solicitud'=>$total,
+                    'articulosCarrito'=>$solicitud,
+                    'estaciones'=>Estacion::where('estado','=','E')->get(),
+                ]);
+            }
+            
         $reglas = SolicitudReglas::get();
 
         foreach ($reglas as $key) {
-            $userId=Auth::user()->id;
-            // si la regla coincide, validamos las 3 reglas de articulos
+            
+            // si la regla coincide, validamos las 3 reglas de articulos EPP, consumibles y refacciones
             if($key->tipo==$solicitud[0]->tipo)
             {
-                // llamamos al aprobador
-                $supervisor= User::where('id','=',$solicitud[0]->usuario)->get();
-                // si no existe el supervisor:
-                if ($supervisor[0]['idSupervisor'] == null)
+                // validamos si es un supervisor el que necesitamos
+                if($key->aprobador=="SUPER")
                 {
-                    $total= Solicitud::where('estado','=','O')
-                    ->where('usuario','=',$userId)
-                    ->get();
-                    return view('solicitud.solicitud',[
-                        'error'=>"Error no tienes supervisor Avisa a Compras",
-                        'cantidadCarrito'=>sizeof($total),
-                        'solicitud'=>$total,
-                        'articulosCarrito'=>$solicitud,
-                        'estaciones'=>Estacion::where('estado','=','E')->get(),
-                    ]);
+                    // llamamos al supervisor
+                    $supervisor= User::where('id','=',$solicitud[0]->usuario)->get();
+                    $supervisor = $supervisor[0]['idSupervisor'];
+                    // validamos si existe
+                    if ($supervisor == null)
+                    {
+                        $total= Solicitud::where('estado','=','O')
+                        ->where('usuario','=',$userId)
+                        ->get();
+                        return view('solicitud.solicitud',[
+                            'error'=>"Error no tienes supervisor Avisa a Compras",
+                            'cantidadCarrito'=>sizeof($total),
+                            'solicitud'=>$total,
+                            'articulosCarrito'=>$solicitud,
+                            'estaciones'=>Estacion::where('estado','=','E')->get(),
+                        ]);
+                    }
                 }
-                // si existe supervisor y es cualquiera de las reglas creamos la solicitud de aprobacion para un supervisor
+                // aqui validamos las solicitudes de EPP
                 else
                 {
+                    // si el tipo de aprobador es diferente al supervisor lo seleccionamos
+                    // llamamos a los usuarios con EHS y Gerente
+                    $supervisor= User::where('role','=',$key->aprobador)->get();
+                    $supervisor = $supervisor[0]['username'];
+                    if ($supervisor == null)
+                    {
+                        $total= Solicitud::where('estado','=','O')
+                        ->where('usuario','=',$userId)
+                        ->get();
+                        return view('solicitud.solicitud',[
+                            'error'=>"Error no existe un usuario con el rol de ".$key->aprobador,
+                            'cantidadCarrito'=>sizeof($total),
+                            'solicitud'=>$total,
+                            'articulosCarrito'=>$solicitud,
+                            'estaciones'=>Estacion::where('estado','=','E')->get(),
+                        ]);
+                    }
+                }
+                // agregamos la aprobacion para la solicitud
                     // crear aprobacion
                     Aprobacion::create([
                         'tipo'=>$solicitud[0]->tipo,
                         'idSolicitud'=>$request['idSolicitud'],
                         'idUsuario'=>$solicitud[0]->usuario,
-                        'iDAprobador'=>$supervisor[0]['idSupervisor'],
+                        'iDAprobador'=>$supervisor,
                         'estado'=>'E',
                     ]);
-                }
             }
             // agregamos una segunda validacion para agregar la reglas extras de costo y material critico
             if($key->tipo=="Critico")
@@ -75,9 +114,8 @@ class AprobacionController extends Controller
             'cantidadCarrito'=>DB::table('elementoscarrito')->where('usuario','=',$userId)
             ->where('estado','=','O')
             ->count(),
-            'listaSolicitudes'=>Solicitud::where('usuario','=',$userId)->get(),
+            'listaSolicitudes'=>Solicitud::where('usuario','=',$userId)->orderBy('fecha_creacion','asc')->get(),
         ]);
-
 
     }
 
@@ -108,9 +146,14 @@ class AprobacionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $userId=Auth::user()->username;
+        
+        return view('aprobacion.pendienteAprobacion',[
+            'aprobaciones'=>DB::table('solicitudesUsuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get(),
+            
+        ]);
     }
 
     /**

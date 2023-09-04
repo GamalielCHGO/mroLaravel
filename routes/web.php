@@ -59,11 +59,13 @@ Route::post('/tablaSolicitud',[App\Http\Controllers\SolicitudController::class, 
 Route::get('/listaSolicitudes',[App\Http\Controllers\SolicitudController::class, 'show'])->name('listaSolicitudes');
 Route::post('/agregarCarrito',[App\Http\Controllers\ElementosSolicitudController::class, 'store'])->name('agregarCarrito');
 Route::get('/eliminarElementoSolicitud',[App\Http\Controllers\SolicitudController::class, 'eliminarElementoSolicitud'])->name('eliminarElementoSolicitud');
+Route::get('/solicitudLectura/{idSolicitud}/',[App\Http\Controllers\SolicitudController::class, 'solicitudLectura'])->name('solicitudLectura');
 
 // aprobaciones
+// este es el flujo de validacion de aprobaciones
 Route::post('/solicitarAprobacion',[App\Http\Controllers\AprobacionController::class, 'index'])->name('solicitarAprobacion');
-
-Route::POST('/aprobacion',[App\Http\Controllers\AprobacionController::class, 'aprobaciones'])->name('aprobaciones');
+// vista de aprobaciones
+Route::GET('/pendienteAprobacion',[App\Http\Controllers\AprobacionController::class, 'show'])->name('pendienteAprobacion');
 
 
 // entregas
