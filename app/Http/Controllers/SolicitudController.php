@@ -187,9 +187,18 @@ class SolicitudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        $userId=Auth::user()->id;
+        Solicitud::where('id','=',request()->idSolicitud)->delete();
+        ElementosSolicitud::where('id_solicitud','=',request()->idSolicitud)->delete();
+        return view('home',[
+            'cantidadCarrito'=>DB::table('elementoscarrito')->where('usuario','=',$userId)
+            ->where('estado','=','O')
+            ->count(),
+            'listaSolicitudes'=>Solicitud::where('usuario','=',$userId)->orderBy('fecha_creacion','asc')->get(),
+            'status'=>'Solicitud eliminada con exito'
+        ]);
     }
 
     public function solicitudLectura($idSolicitud)

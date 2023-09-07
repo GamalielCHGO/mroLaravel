@@ -15,7 +15,7 @@
     </div>
     <div class="row justify-content-center">
         <!-- bug list card start -->
-        @isset($error)
+                @isset($error)
                     <div class="alert alert-dismissible alert-success background-warning">
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <strong>Error!! </strong> {{ $error}}
@@ -37,6 +37,18 @@
                 <div class="card-header-right">
                     <i class="icofont icofont-spinner-alt-5"></i>
                 </div>
+                <div class="row">
+                    <div class="col-4">
+                        <form action="{{route('eliminarSolicitud')}}" method="post">
+                            @csrf
+                            <div class="d-none"><input type="text" id="idSolicitud" name="idSolicitud" value="{{$solicitud[0]->id}}"></div>
+                            <div class="text-cente">
+                                <button type="submit" class="btn btn-danger">Eliminar solicitud</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
             <div class="row">
                 <form action="{{route('tablaSolicitud')}}" method="post">

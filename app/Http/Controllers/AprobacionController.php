@@ -149,10 +149,33 @@ class AprobacionController extends Controller
     public function show()
     {
         $userId=Auth::user()->username;
-        
+        $aprobaciones = DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get();
+        foreach ($aprobaciones as $key => $value) {
+            $ids[]=$value->idSolicitud;
+        }
+        $ids;
+
         return view('aprobacion.pendienteAprobacion',[
-            'aprobaciones'=>DB::table('solicitudesUsuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get(),
-            
+            'aprobaciones'=>DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get(),
+            'ids'=>$ids,
+            'elementosCarrito'=>DB::table('elementoscarrito')
+            ->whereIn('id_solicitud',$ids)->orderBy('id_solicitud','asc')->get()
+        ]);
+    }
+
+    public function destroyElementoSolicitud(Request $request){
+        $userId=Auth::user()->username;
+        $aprobaciones = DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get();
+        foreach ($aprobaciones as $key => $value) {
+            $ids[]=$value->idSolicitud;
+        }
+        $ids;
+        ElementosSolicitud::where('id','=',$request->id)->delete();
+        return view('aprobacion.pendienteAprobacion',[
+            'aprobaciones'=>DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get(),
+            'ids'=>$ids,
+            'elementosCarrito'=>DB::table('elementoscarrito')
+            ->whereIn('id_solicitud',$ids)->orderBy('id_solicitud','asc')->get()
         ]);
     }
 

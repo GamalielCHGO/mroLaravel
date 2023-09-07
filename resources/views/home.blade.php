@@ -6,6 +6,19 @@
         <div>
             <p class="text-center fw-bold display-2 text-primary">Bienvenid@ al sistema Vales electrónicos</p>
         </div>
+        @isset($error)
+            <div class="alert alert-dismissible alert-success background-warning">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>Error!! </strong> {{ $error}}
+            </div>
+        @endisset
+
+        @isset($status)
+            <div class="alert alert-dismissible alert-success background-success">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>Correcto!! </strong> {{ $status}}
+            </div>
+        @endisset
         
         <!-- tabla de solicitudes -->
         <div class="card">

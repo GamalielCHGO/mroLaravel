@@ -69,19 +69,19 @@ class ArticuloController extends Controller
 
 // creando imagen
         $nombre=$request->numero_parte.'.'.$request->file('imagen')->extension();
-        $pathOriginal = public_path('img\\original\\').$request->tipo;
-        $pathResize = public_path('img\\resize\\').$request->tipo;
+        $pathOriginal = public_path('img/original/').$request->tipo;
+        $pathResize = public_path('img/resize/').$request->tipo;
         // moviendo imagen a la carpeta original
         $request->imagen->move($pathOriginal,$nombre);
 
-        $pathOr = explode('\\',$pathOriginal,4);
-        $pathOr="\\".$pathOr[3];
-        $pathRe = explode('\\',$pathResize,4);
-        $pathRe="\\".$pathRe[3];
+        $pathOr = explode('mro',$pathOriginal,4);
+        $pathOr="/mro".$pathOr[1];
+        $pathRe = explode('mro',$pathResize,4);
+        $pathRe="/mro".$pathRe[1];
 
         // resize image to new width
-        $img = Image::make($pathOriginal.'\\'.$nombre)->widen(100);
-        $img->save($pathResize.'\\'.$nombre,90);
+        $img = Image::make($pathOriginal.'/'.$nombre)->widen(100);
+        $img->save($pathResize.'/'.$nombre,90);
 
         Articulo::create ([
             'numero_parte' => $request['numero_parte'],
@@ -92,8 +92,8 @@ class ArticuloController extends Controller
             'precio' => $request['precio'],
             'critico' => $request['critico'],
             'inventario' => $request['inventario'],
-            'ruta' => $pathOr.'\\'.$nombre,
-            'rutaResize' => $pathRe.'\\'.$nombre,
+            'ruta' => $pathOr.'/'.$nombre,
+            'rutaResize' => $pathRe.'/'.$nombre,
         ]);
         
         return redirect()->route('listaArticulos')->with('status','El articulo fue creado con exito');
@@ -154,22 +154,22 @@ class ArticuloController extends Controller
             {
                 // creando imagen
                 $nombre=$request->numero_parte.'.'.$request->file('imagen')->extension();
-                $pathOriginal = public_path('img\\original\\').$request->tipo;
-                $pathResize = public_path('img\\resize\\').$request->tipo;
+                $pathOriginal = public_path('img/original/').$request->tipo;
+                $pathResize = public_path('img/resize/').$request->tipo;
                 // moviendo imagen a la carpeta original
                 $request->imagen->move($pathOriginal,$nombre);
 
-                $pathOr = explode('\\',$pathOriginal,4);
-                $pathOr="\\".$pathOr[3];
-                $pathRe = explode('\\',$pathResize,4);
-                $pathRe="\\".$pathRe[3];
+                $pathOr = explode('mro',$pathOriginal,4);
+                $pathOr="/mro".$pathOr[1];
+                $pathRe = explode('mro',$pathResize,4);
+                $pathRe="/mro".$pathRe[1];
 
                 // resize image to new width
-                $img = Image::make($pathOriginal.'\\'.$nombre)->widen(100);
-                $img->save($pathResize.'\\'.$nombre,90);
+                $img = Image::make($pathOriginal.'/'.$nombre)->widen(100);
+                $img->save($pathResize.'/'.$nombre,90);
 
-                $rutaOr=$pathOr.'\\'.$nombre;
-                $rutaRe =$pathRe.'\\'.$nombre;
+                $rutaOr=$pathOr.'/'.$nombre;
+                $rutaRe =$pathRe.'/'.$nombre;
             }
             else
             {
