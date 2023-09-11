@@ -56,7 +56,7 @@ Lista de solicitudes
                                         @case('A')
                                             <td><span class="label label-warning">Aprobada</span>
                                             <td><a href="{{route('solicitudLectura',$item->id) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
-                                            </td>
+                                            </td> 
                                             @break
                                         @case('R')
                                             <td><span class="label label-danger">Rechazada</span>
