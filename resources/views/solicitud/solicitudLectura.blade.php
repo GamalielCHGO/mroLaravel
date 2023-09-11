@@ -24,9 +24,30 @@
             </div>
             <h3>Datos de solicitud: </h3>
             <h4>Tipo: {{$articulosCarrito[0]->tipo}}</h4>
-            <h4>Estado: {{$articulosCarrito[0]->estado}}</h4>
+            <h4>Estado:
+                @switch($articulosCarrito[0]->estado)
+                @case('O')
+                    <span class="label label-primary">Abierto</span>
+                    @break
+                @case('E')
+                    <span class="label label-info">Esperando aprobacion</span>
+                    @break
+                @case('A')
+                    <span class="label label-warning">Aprobada</span>
+                    
+                    @break
+                @case('R')
+                    <span class="label label-danger">Rechazada</span>
+                    @break
+                @default
+                    <span class="label label-success">Entregada</span>
+                @endswitch 
+            </h4>
             <h4>Aprobador: {{$aprobador->idAprobador}}</h4>
-            <h4>FechaAprobacion: {{$aprobador->fechaAprobaciob==null? "No aprobado": $aprobador->fechaAprobaciob}}</h4>
+            <h2>Fechas</h2>
+            <h4>Fecha Creacion: {{$solicitud[0]->fecha_creacion==null? "No aprobado": $solicitud[0]->fecha_creacion}}</h4>
+            <h4>Fecha Aprobacion/Rechazo: {{$solicitud[0]->fechaAprobacion==null? "No aprobado": $solicitud[0]->fechaAprobacion}}</h4>
+            <h4>Fecha Entrega: {{$solicitud[0]->fecha_entrega==null? "No aprobado": $solicitud[0]->fecha_entrega}}</h4>
             <!-- bug list card end -->
             <div class="card-block">
                 <div class="table-responsive">

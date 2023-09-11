@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
  
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -138,6 +140,46 @@ class UserController extends Controller
     {
         $user->delete(); 
         return redirect()->route('listaUsuarios')->with('status','El usuario fue eliminado con exito');
+    }
+
+    public function perfil()
+    {
+        $userId=Auth::user()->id;
+        $usuario=User::where('id',$userId)->get();
+
+        return view('usuario.perfil',[
+            'usuario'=>$usuario[0],
+        ]);
+    }
+
+    public function updatePass()
+    {
+        $request=request();
+        $request->user()->password;
+
+        request()->validate([
+            'passwordOld'=>'required|current_password',
+            'contrasenaNueva'=>[
+                'required',
+                Password::min(8)
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised()
+            ],
+            'contrasenaNueva_confirmation'=>'required|min:8',
+        ]);
+        $userId=Auth::user()->id;
+        $usuario=User::where('id',$userId)->get();
+        User::where('id',$userId)->update([
+            'password' => Hash::make($request['contrasenaNueva'])
+        ]);
+        
+        return view('usuario.perfil',[
+            'usuario'=>$usuario[0],
+            'status'=>'Contrasena actualizada'
+        ]);
     }
 }
 

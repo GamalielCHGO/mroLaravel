@@ -58,9 +58,14 @@
                                                 class="label label-warning">Aprobada</span>
                                             </td>
                                             @break
+                                        @case('R')
+                                            <td><span
+                                                class="label label-danger">Rechazada</span>
+                                            </td>
+                                            @break
                                         @default
                                             <td><span
-                                                class="label label-danger">Entregada</span>
+                                                class="label label-primary-emphasis">Entregada</span>
                                             </td>
                                     @endswitch
                                     <td>{{$item->tipo}}</td>

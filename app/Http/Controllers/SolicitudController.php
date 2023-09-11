@@ -209,6 +209,7 @@ class SolicitudController extends Controller
             ->count(),
             'articulosCarrito'=>DB::table('elementoscarrito')->where('id_solicitud','=',$idSolicitud)->get(),
             'aprobador'=>Aprobacion::where('idSolicitud','=',$idSolicitud)->first(),
+            'solicitud'=>DB::table('solicitudesusuario')->where('idSolicitud',$idSolicitud)->get(),
         ]);
     }
 }

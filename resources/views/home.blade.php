@@ -67,8 +67,13 @@
                                             <td><a href="{{route('solicitudLectura',$item->id) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
                                             </td>
                                             @break
+                                        @case('R')
+                                            <td><span class="label label-danger">Rechazada</span>
+                                            <td><a href="{{route('solicitudLectura',$item->id) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
+                                            </td>
+                                            @break
                                         @default
-                                            <td><span class="label label-danger">Entregada</span>
+                                            <td><span class="label label-success">Entregada</span>
                                             <td><a href="{{route('solicitudLectura',$item->id) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
                                             </td>
                                     @endswitch

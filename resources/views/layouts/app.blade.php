@@ -169,18 +169,8 @@
                                         data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                         
                                         <li>
-                                            <a href="{{ route('configurar') }}">
-                                                <i class="feather icon-settings"></i> Configuracion
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="user-profile.html">
+                                            <a href="{{route('perfil')}}">
                                                 <i class="feather icon-user"></i> Perfil
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="email-inbox.html">
-                                                <i class="feather icon-mail"></i> Mensajes
                                             </a>
                                         </li>
                                         
@@ -238,13 +228,13 @@
                                         <span class="pcoded-mtext">Articulos</span>
                                     </a>
                                 </li>
-                                
+{{--                                 
                                 <li class="">
                                     <a href="{{route('configurar') }}">
                                         <span class="pcoded-micon"><i class="feather icon-settings"></i></span>
                                         <span class="pcoded-mtext">Configuracion</span>
                                     </a>
-                                </li>
+                                </li> --}}
 
 
                                
@@ -327,6 +317,14 @@
                                         
 
                                     </li>
+
+                                    <li class="{{ request()->routeIs('listaEntregaArticulos') ? 'active' : '' }}">
+                                        <a href="{{ route('listaEntregaArticulos') }}">
+                                            <span class="pcoded-micon"><i class="icofont icofont-ui-check"></i></span>
+                                            <span class="pcoded-mtext">Entrega Articulos</span>
+                                        </a>
+                                    </li>
+
                                 @endcan
                                 <li class=" {{ request()->routeIs('pendienteAprobacion') ? 'active' : '' }}">
                                     <a href="{{ route('pendienteAprobacion') }}">

@@ -148,12 +148,12 @@ class AprobacionController extends Controller
      */
     public function show()
     {
+        $ids=[];
         $userId=Auth::user()->username;
         $aprobaciones = DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get();
         foreach ($aprobaciones as $key => $value) {
             $ids[]=$value->idSolicitud;
         }
-        $ids;
 
         return view('aprobacion.pendienteAprobacion',[
             'aprobaciones'=>DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get(),
@@ -164,18 +164,76 @@ class AprobacionController extends Controller
     }
 
     public function destroyElementoSolicitud(Request $request){
+        $ids=[];
         $userId=Auth::user()->username;
         $aprobaciones = DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get();
         foreach ($aprobaciones as $key => $value) {
             $ids[]=$value->idSolicitud;
         }
-        $ids;
         ElementosSolicitud::where('id','=',$request->id)->delete();
         return view('aprobacion.pendienteAprobacion',[
             'aprobaciones'=>DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get(),
             'ids'=>$ids,
             'elementosCarrito'=>DB::table('elementoscarrito')
             ->whereIn('id_solicitud',$ids)->orderBy('id_solicitud','asc')->get()
+        ]);
+    }
+
+    public function aprobarSolicitud(){
+        $idSolicitud=request()->id;
+        Solicitud::where('id',$idSolicitud)->update([
+            'estado'=>'A'
+        ]);
+        ElementosSolicitud::where('id_solicitud',$idSolicitud)->update([
+            'estado'=>'A'
+        ]);
+        Aprobacion::where('idSolicitud',$idSolicitud)->update([
+            'estado'=>'A',
+            'fechaAprobacion'=>now()
+        ]);
+
+        $ids=[];
+        $userId=Auth::user()->username;
+        $aprobaciones = DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get();
+        foreach ($aprobaciones as $key => $value) {
+            $ids[]=$value->idSolicitud;
+        }
+
+        return view('aprobacion.pendienteAprobacion',[
+            'aprobaciones'=>DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get(),
+            'ids'=>$ids,
+            'elementosCarrito'=>DB::table('elementoscarrito')
+            ->whereIn('id_solicitud',$ids)->orderBy('id_solicitud','asc')->get(),
+            'status'=>'Solicitud aprobada'
+        ]);
+    }
+
+    public function rechazarSolicitud(){
+        $idSolicitud=request()->id;
+        Solicitud::where('id',$idSolicitud)->update([
+            'estado'=>'R'
+        ]);
+        ElementosSolicitud::where('id_solicitud',$idSolicitud)->update([
+            'estado'=>'R'
+        ]);
+        Aprobacion::where('idSolicitud',$idSolicitud)->update([
+            'estado'=>'R',
+            'fechaAprobacion'=>now()
+        ]);
+
+        $ids=[];
+        $userId=Auth::user()->username;
+        $aprobaciones = DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get();
+        foreach ($aprobaciones as $key => $value) {
+            $ids[]=$value->idSolicitud;
+        }
+
+        return view('aprobacion.pendienteAprobacion',[
+            'aprobaciones'=>DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get(),
+            'ids'=>$ids,
+            'elementosCarrito'=>DB::table('elementoscarrito')
+            ->whereIn('id_solicitud',$ids)->orderBy('id_solicitud','asc')->get(),
+            'status'=>'Solicitud aprobada'
         ]);
     }
 

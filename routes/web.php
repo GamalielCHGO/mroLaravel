@@ -31,7 +31,9 @@ Route::post('/crearUsuario','App\Http\Controllers\UserController@store')->name('
 Route::get('/listaUsuarios',[App\Http\Controllers\UserController::class, 'index'])->name('listaUsuarios');
 Route::get('/usuario/{user}','App\Http\Controllers\UserController@show')->name('usuario');
 Route::patch('/usuario/editar/{user}','App\Http\Controllers\UserController@update')->name('editarUsuario.update');
+Route::post('/usuario/actualizarPass','App\Http\Controllers\UserController@updatePass')->name('updatePass');
 Route::delete('/usuario/{user}','App\Http\Controllers\UserController@destroy')->name('user.destroy');
+Route::get('/perfil','App\Http\Controllers\UserController@perfil')->name('perfil');
 // departamento
 Route::post('/crearDepartamento','App\Http\Controllers\DepartamentoController@store')->name('crearDepartamento.store');
 Route::get('/listaDepartamentos',[App\Http\Controllers\DepartamentoController::class, 'index'])->name('listaDepartamentos');
@@ -65,20 +67,24 @@ Route::get('/solicitudLectura/{idSolicitud}/',[App\Http\Controllers\SolicitudCon
 // aprobaciones
 // este es el flujo de validacion de aprobaciones
 Route::post('/solicitarAprobacion',[App\Http\Controllers\AprobacionController::class, 'index'])->name('solicitarAprobacion');
+Route::post('/aprobarSolicitud',[App\Http\Controllers\AprobacionController::class, 'aprobarSolicitud'])->name('aprobarSolicitud');
+Route::post('/rechazarSolicitud',[App\Http\Controllers\AprobacionController::class, 'rechazarSolicitud'])->name('rechazarSolicitud');
 
 // vista de aprobaciones
 Route::GET('/pendienteAprobacion',[App\Http\Controllers\AprobacionController::class, 'show'])->name('pendienteAprobacion');
 Route::GET('/destroyElementoSolicitud',[App\Http\Controllers\AprobacionController::class, 'destroyElementoSolicitud'])->name('destroyElementoSolicitud');
 
-
-
-
 // entregas
-Route::get('/entregaPendiente',[App\Http\Controllers\HomeController::class, 'entregaPendiente'])->name('entregaPendiente');
-Route::get('/entregaPendienteDetalles',[App\Http\Controllers\HomeController::class, 'entregaPendienteDetalles'])->name('entregaPendienteDetalles');
+Route::get('/listaEntregaArticulos',[App\Http\Controllers\EntregaArticuloController::class, 'index'])->name('listaEntregaArticulos');
+Route::get('/entregaArticulos/{idSolicitud}/',[App\Http\Controllers\EntregaArticuloController::class, 'show'])->name('entregaArticulos');
+Route::post('/eliminarArticuloSolicitud',[App\Http\Controllers\EntregaArticuloController::class, 'destroy'])->name('eliminarArticuloSolicitud');
+Route::post('/entregarSolicitud',[App\Http\Controllers\EntregaArticuloController::class, 'entregarSolicitud'])->name('entregarSolicitud');
+
+
+
+
+
 // conciliacion
 Route::get('/conciliacion',[App\Http\Controllers\HomeController::class, 'conciliacion'])->name('conciliacion');
-// configuracion
-Route::get('/configurar',[App\Http\Controllers\HomeController::class, 'configurar'])->name('configurar');
 
 
