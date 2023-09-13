@@ -63,6 +63,8 @@ Route::post('/agregarCarrito',[App\Http\Controllers\ElementosSolicitudController
 Route::post('/eliminarSolicitud',[App\Http\Controllers\SolicitudController::class, 'destroy'])->name('eliminarSolicitud');//eliminar solicitud y sus elementos
 Route::get('/eliminarElementoSolicitud',[App\Http\Controllers\SolicitudController::class, 'eliminarElementoSolicitud'])->name('eliminarElementoSolicitud');
 Route::get('/solicitudLectura/{idSolicitud}/',[App\Http\Controllers\SolicitudController::class, 'solicitudLectura'])->name('solicitudLectura');
+// VISTA GENERAL SOLICITUDES
+Route::get('/listaSolicitudesGlobal',[App\Http\Controllers\SolicitudController::class, 'listaSolicitudesGlobal'])->name('listaSolicitudesGlobal');
 
 // aprobaciones
 // este es el flujo de validacion de aprobaciones

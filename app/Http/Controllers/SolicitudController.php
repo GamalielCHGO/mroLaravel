@@ -212,5 +212,15 @@ class SolicitudController extends Controller
             'solicitud'=>DB::table('solicitudesusuario')->where('idSolicitud',$idSolicitud)->get(),
         ]);
     }
+
+    public function listaSolicitudesGlobal(){
+        $userId=Auth::user()->id;
+        return view ('solicitud.listaSolicitudesGlobal',[
+            'cantidadCarrito'=>DB::table('elementoscarrito')->where('usuario','=',$userId)
+            ->where('estado','=','O')
+            ->count(),
+            'listaSolicitudes'=>DB::table('solicitudesusuario')->orderBy('fecha_creacion','desc')->get()
+        ]);
+    }
 }
 

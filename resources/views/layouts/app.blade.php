@@ -324,6 +324,12 @@
                                             <span class="pcoded-mtext">Entrega Articulos</span>
                                         </a>
                                     </li>
+                                    <li class=" {{ request()->routeIs('listaSolicitudesGlobal') ? 'active' : '' }}">
+                                        <a href="{{ route('listaSolicitudesGlobal') }}">
+                                            <span class="pcoded-micon"><i class="icofont icofont-list"></i></span>
+                                            <span class="pcoded-mtext">Solicitudes Globales</span>
+                                        </a>
+                                    </li>
 
                                 @endcan
                                 <li class=" {{ request()->routeIs('pendienteAprobacion') ? 'active' : '' }}">
@@ -332,6 +338,7 @@
                                         <span class="pcoded-mtext">Aprobaciones</span>
                                     </a>
                                 </li>
+                                
                                 <li class="">
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <span class="pcoded-micon"><i class="feather icon-x"></i></span>

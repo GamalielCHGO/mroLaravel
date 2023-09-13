@@ -38,7 +38,7 @@ Lista de solicitudes
                         <tbody class="text-start">
                             @forelse ($listaSolicitudes as $item)
                                 <tr>
-                                    <td>{{$item->id}}</td>
+                                    <td>{{$item->idSolicitud}}</td>
                                     <td>{{$item->username}}</td>
                                     <td>{{$item->fecha_creacion}}</td>
                                     <td>{{$item->tipo}}</td>
@@ -51,21 +51,21 @@ Lista de solicitudes
                                             @break
                                         @case('E')
                                             <td><span class="label label-info">Esperando aprobacion</span></td>
-                                            <td><a href="{{route('solicitudLectura',$item->id) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
+                                            <td><a href="{{route('solicitudLectura',$item->idSolicitud) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
                                             @break
                                         @case('A')
                                             <td><span class="label label-warning">Aprobada</span>
-                                            <td><a href="{{route('solicitudLectura',$item->id) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
+                                            <td><a href="{{route('solicitudLectura',$item->idSolicitud) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
                                             </td> 
                                             @break
                                         @case('R')
                                             <td><span class="label label-danger">Rechazada</span>
-                                            <td><a href="{{route('solicitudLectura',$item->id) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
+                                            <td><a href="{{route('solicitudLectura',$item->idSolicitud) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
                                             </td>
                                             @break
                                         @default
                                             <td><span class="label label-success">Entregada</span>
-                                            <td><a href="{{route('solicitudLectura',$item->id) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
+                                            <td><a href="{{route('solicitudLectura',$item->idSolicitud) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
                                             </td>
                                     @endswitch
                                 </tr>

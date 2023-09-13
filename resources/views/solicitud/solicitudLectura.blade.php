@@ -23,9 +23,9 @@
                 <h1 class="fs-1">Elementos en el carrito</h1>
             </div>
             <h3>Datos de solicitud: </h3>
-            <h4>Tipo: {{$articulosCarrito[0]->tipo}}</h4>
+            <h4>Tipo: {{$solicitud[0]->tipo}}</h4>
             <h4>Estado:
-                @switch($articulosCarrito[0]->estado)
+                @switch($solicitud[0]->estado)
                 @case('O')
                     <span class="label label-primary">Abierto</span>
                     @break
