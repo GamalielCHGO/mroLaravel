@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('tb_estaciones', function (Blueprint $table) {
             $table->id();
-            $table->string('estacion');
-            $table->string('cc');
+            $table->string('estacion'); 
             $table->string('estado')->default('activo');
             $table->timestamps();
         });

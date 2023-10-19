@@ -23,31 +23,51 @@
                 <h1 class="fs-1">Elementos en el carrito</h1>
             </div>
             <h3>Datos de solicitud: </h3>
-            <h4>Tipo: {{$solicitud[0]->tipo}}</h4>
-            <h4>Estado:
-                @switch($solicitud[0]->estado)
-                @case('O')
-                    <span class="label label-primary">Abierto</span>
-                    @break
-                @case('E')
-                    <span class="label label-info">Esperando aprobacion</span>
-                    @break
-                @case('A')
-                    <span class="label label-warning">Aprobada</span>
-                    
-                    @break
-                @case('R')
-                    <span class="label label-danger">Rechazada</span>
-                    @break
-                @default
-                    <span class="label label-success">Entregada</span>
-                @endswitch 
-            </h4>
-            <h4>Aprobador: {{$aprobador->idAprobador}}</h4>
-            <h2>Fechas</h2>
-            <h4>Fecha Creacion: {{$solicitud[0]->fecha_creacion==null? "No aprobado": $solicitud[0]->fecha_creacion}}</h4>
-            <h4>Fecha Aprobacion/Rechazo: {{$solicitud[0]->fechaAprobacion==null? "No aprobado": $solicitud[0]->fechaAprobacion}}</h4>
-            <h4>Fecha Entrega: {{$solicitud[0]->fecha_entrega==null? "No aprobado": $solicitud[0]->fecha_entrega}}</h4>
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    <thead class="table-primary">
+                        <th class="text-center">Tipo</th>
+                        <th class="text-center">Aprobador</th>
+                        <th class="text-center">Estado</th>
+                    </thead>
+                    <tbody>
+                        <td class="text-center">{{$solicitud[0]->tipo}}</td>
+                        <td class="text-center">{{$aprobador->idAprobador}}</td>
+                        @switch($solicitud[0]->estado)
+                            @case('O')
+                                <td class="label label-primary text-center fs-5">Abierto</td>
+                                @break
+                            @case('E')
+                                <td class="label label-info text-center fs-5">Esperando aprobacion</td>
+                                @break
+                            @case('A')
+                                <td class="label label-warning text-center fs-5">Aprobada</td>
+                                
+                                @break
+                            @case('R')
+                                <td class="label label-danger text-center fs-5">Rechazada</td>
+                                @break
+                            @default
+                                <td class="label label-success text-center fs-5">Entregada</td>
+                        @endswitch 
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Fechas</h3>
+            <table class="table table-borderless">
+                <thead class="table-primary">
+                    <th class="text-center">Fecha creacion</th>
+                    <th class="text-center">Fecha aprobacion</th>
+                    <th class="text-center">Fecha entrega</th>
+                </thead>
+                <tbody>
+                    <td class="text-center">{{$solicitud[0]->fecha_creacion==null? "No aprobado": $solicitud[0]->fecha_creacion}}</td>
+                    <td class="text-center">{{$solicitud[0]->fechaAprobacion==null? "No aprobado": $solicitud[0]->fechaAprobacion}}</td>
+                    <td class="text-center">{{$solicitud[0]->fecha_entrega==null? "No aprobado": $solicitud[0]->fecha_entrega}}</td>
+                   
+                </tbody>
+            </table>
             <!-- bug list card end -->
             <div class="card-block">
                 <div class="table-responsive">

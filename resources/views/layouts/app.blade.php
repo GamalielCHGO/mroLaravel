@@ -307,13 +307,13 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                        <ul class="pcoded-submenu">
+                                        {{-- <ul class="pcoded-submenu">
                                             <li class="{{ request()->routeIs('listaAsignacion') ? 'active' : '' }}">
                                                 <a href="{{ route('listaAsignacion') }}">
                                                     <i class="fa fa-barcode"></i> Asignacion de articulos
                                                 </a>
                                             </li>
-                                        </ul>
+                                        </ul> --}}
                                         
 
                                     </li>

@@ -7,6 +7,7 @@ use App\Models\Departamento;
 use App\Models\Solicitud;
 use App\Models\Estacion;
 use App\Models\Articulo;
+use App\Models\CC;
 use App\Models\ElementosSolicitud;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,7 @@ class SolicitudController extends Controller
                 'solicitud'=>$total,
                 'articulosCarrito'=>DB::table('elementoscarrito')->where('id_Solicitud','=',$total[0]->id)->get(),
                 'estaciones'=>Estacion::where('estado','=','E')->get(),
+                'ccs'=>CC::where('estado','=','E')->get(),
             ]);
         }
     }
@@ -75,6 +77,7 @@ class SolicitudController extends Controller
             ->where('estado','=','O')
             ->count(),
             'solicitud'=>Solicitud::where('id','=',$id)->get(),
+            'ccs'=>CC::where('estado','=','E')->get(),
             'estaciones'=>Estacion::where('estado','=','E')->get(),
             'articulosCarrito'=>DB::table('elementoscarrito')->where('id_Solicitud','=',$id)->get(),
         ]);
@@ -89,30 +92,30 @@ class SolicitudController extends Controller
         $userId=Auth::user()->id;
         $id=$request->id;
         $idEstacion=$request->estacion;
+        $idCc=$request->cc;
         $solicitud=Solicitud::where('id','=',$id)->get()[0];
         $tipo=$solicitud->tipo;
         $estacion=Estacion::where('id','=',$idEstacion)->get()[0];
+        $cc=CC::where('id','=',$idCc)->get()[0];
 
         return view('solicitud.tablaSolicitud',[
             'cantidadCarrito'=>DB::table('elementoscarrito')->where('usuario','=',$userId)
             ->where('estado','=','O')
             ->count(),
             'estacion'=>$estacion->estacion,
-            'cc'=>$estacion->cc,
+            'cc'=>$cc,
             'solicitud'=>$solicitud,
             'estaciones'=>Estacion::get(),
             'articulosCarrito'=>DB::table('elementoscarrito')->where('id_Solicitud','=',$id)->get(),
-            'articulos'=>DB::table('view_articulos')->
+            'articulos'=>DB::table('tb_articulos')->
             where('tipo','=',$tipo)->
-            where('estacion','=',$estacion->estacion)->
-            where('cc','=',$estacion->cc)->
             get(),
         ]);
     }
 
     public function getArticulos($id, $tipo){
         $estacion =Estacion::where('id','=',$id)->get()[0];
-        $articulos = DB::table('view_articulos')->
+        $articulos = DB::table('tb_articulos')->
         where('tipo','=',$tipo)->
         where('estacion','=',$estacion->estacion)->
         where('cc','=',$estacion->cc)->

@@ -94,25 +94,6 @@ Lista Estaciones
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
-                                        <label for="cc">CC</label>
-                                        <select type="text" name="cc" id="" class="form-control form-txt-primary  bg-light shadow-sm @error('cc') is-invalid @else border-0  @enderror"
-                                        placeholder="Centro de Costos...." required
-                                        value="{{old('cc')}}"  
-                                        id="cc">
-                                        @error('cc')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{$message}}</strong>
-                                            </span>
-                                        @enderror
-                                            <option value="">...</option>  
-                                            @forelse ($ccs as $item)
-                                                <option value="{{$item->cc}}">{{$item->cc}} {{$item->descripcion}}</option>    
-                                            @empty
-
-                                            @endforelse
-                                        </select>
-                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button"

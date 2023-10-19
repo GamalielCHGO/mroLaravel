@@ -64,6 +64,16 @@
                             @endforelse
                         </select>
                     </div>
+                    <div class="col-12 mb-2">
+                        <select name="cc" id="cc" class="form-control" required>
+                            <option value="">Selecciona el CC</option>
+                            @forelse ($ccs as $item)
+                                <option value="{{$item->id}}">{{$item->cc}} {{$item->descripcion}} </option>
+                            @empty
+                            <option value="...">Aun no hay cc creados</option>
+                            @endforelse
+                        </select>
+                    </div>
                     <div class="col-12 mt-2 text-center">
                         <button value=""  class="btn btn-info">Agregar articulos</button>
                     </div>

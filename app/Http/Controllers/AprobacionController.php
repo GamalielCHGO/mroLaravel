@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aprobacion;
+use App\Models\CC;
 use App\Models\ElementosSolicitud;
 use App\Models\Estacion;
 use App\Models\Solicitud;
@@ -36,6 +37,7 @@ class AprobacionController extends Controller
                     'solicitud'=>$total,
                     'articulosCarrito'=>$solicitud,
                     'estaciones'=>Estacion::where('estado','=','E')->get(),
+                    'ccs'=>CC::where('estado','=','E')->get(),
                 ]);
             }
             
@@ -64,6 +66,7 @@ class AprobacionController extends Controller
                             'solicitud'=>$total,
                             'articulosCarrito'=>$solicitud,
                             'estaciones'=>Estacion::where('estado','=','E')->get(),
+                            'ccs'=>CC::where('estado','=','E')->get(),
                         ]);
                     }
                 }
@@ -85,6 +88,7 @@ class AprobacionController extends Controller
                             'solicitud'=>$total,
                             'articulosCarrito'=>$solicitud,
                             'estaciones'=>Estacion::where('estado','=','E')->get(),
+                            'ccs'=>CC::where('estado','=','E')->get(),
                         ]);
                     }
                 }

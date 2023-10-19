@@ -42,13 +42,11 @@ class EstacionController extends Controller
         // validando
         request()->validate([
             'estacion'=>['required'],
-            'cc'=>'required'
         ]);
         // guardando
         Estacion::create ([
             'estacion' => $request['estacion'],
             'estado' => 'E',
-            'cc'=>$request['cc'],
         ]);
         
         return redirect()->route('listaEstaciones')->with('status','La estacion fue creada con exito');
