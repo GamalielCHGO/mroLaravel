@@ -58,7 +58,7 @@
                         <select name="estacion" id="estacion" class="form-control" required>
                             <option value="">Selecciona la estacion</option>
                             @forelse ($estaciones as $item)
-                                <option value="{{$item->id}}">{{$item->estacion}} {{$item->cc}} </option>
+                                <option value="{{$item->id}}">{{$item->estacion}}</option>
                             @empty
                             <option value="...">Aun no hay estaciones creadas</option>
                             @endforelse

@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
- 
+
+use App\Mail\newUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
@@ -17,6 +19,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return view('usuario.listaUsuarios',[
@@ -43,7 +50,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
+        
+        $mensaje = request()->validate([
             'name'=>'required',
             'role'=>'required',
             'lastname'=>'required',
@@ -54,8 +62,6 @@ class UserController extends Controller
         ]);
 
         $request['password']=strtoupper($request['lastname']);
-
-        $request;
 
         User::create([
             'name' => $request['name'],
@@ -68,6 +74,8 @@ class UserController extends Controller
             'idSupervisor'=>$request['idSupervisor'],
         ]);
         // validar que el username y el correo no existan
+
+        Mail::to($request['email'])->queue(new newUser ($mensaje));
 
         return redirect()->route('listaUsuarios')->with('status','El usuario fue creado con exito');
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aprobacion;
+use App\Models\Articulo;
 use App\Models\ElementosSolicitud;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
@@ -122,9 +123,17 @@ class EntregaArticuloController extends Controller
     }
     
     public function entregarSolicitud(){
+
         $request = request();
         $idSolicitud=$request->idSolicitud;
 
+        $articulos = ElementosSolicitud::where('id_solicitud','=',$idSolicitud)->get();
+
+        foreach ($articulos as $articulo) {
+            Articulo::where('id',$articulo->id_articulo)->decrement(
+                'inventario',$articulo->cantidad);    
+        }
+        
         Solicitud::where('id','=',$idSolicitud)->update([
             'estado'=>'F',
             'usuario_entrega'=>Auth::user()->username,
@@ -137,6 +146,8 @@ class EntregaArticuloController extends Controller
         ElementosSolicitud::where('id_solicitud','=',$idSolicitud)->update([
             'estado'=>'F',
         ]);
+
+
         return view('entrega.listaEntregaArticulos',[
             'listaSolicitudes'=>DB::table('solicitudesusuario')->where('estado','A')->latest('fecha_creacion')->get(),
             'status'=>'Solicitud '. $idSolicitud.' entregada a ' 

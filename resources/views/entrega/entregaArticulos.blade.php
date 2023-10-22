@@ -25,7 +25,7 @@
                 <strong>Error!! </strong> {{ $error}}
             </div>
         @endisset
-
+ 
 
         <div class="card">
             <div class="row text-center">
