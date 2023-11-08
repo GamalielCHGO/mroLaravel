@@ -19,5 +19,6 @@ class ElementosSolicitud extends Model
        'estado',
        'cc',
        'estacion',
+       'comentarios',
    ];
 }

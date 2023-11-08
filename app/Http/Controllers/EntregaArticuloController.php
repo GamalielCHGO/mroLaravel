@@ -53,13 +53,14 @@ class EntregaArticuloController extends Controller
      */
     public function show($idSolicitud)
     {
-
+ 
         return view('entrega.entregaArticulos',[
             'cantidadCarrito'=>DB::table('elementoscarrito')->where('id_solicitud','=',$idSolicitud)
             ->count(),
             'solicitud'=>Solicitud::where('id','=',$idSolicitud)->get(),
             'articulosCarrito'=>DB::table('elementoscarrito')->where('id_solicitud','=',$idSolicitud)->get(),
             'aprobador'=>Aprobacion::where('idSolicitud','=',$idSolicitud)->first(),
+            'solicitudes'=>DB::table('solicitudesusuario')->where('idSolicitud',$idSolicitud)->get(),
         ]);
     }
 
@@ -118,8 +119,11 @@ class EntregaArticuloController extends Controller
             'solicitud'=>Solicitud::where('id','=',$idSolicitud)->get(),
             'articulosCarrito'=>DB::table('elementoscarrito')->where('id_solicitud','=',$idSolicitud)->get(),
             'aprobador'=>Aprobacion::where('idSolicitud','=',$idSolicitud)->first(),
-            'status'=>'Elemento eliminado'
+            'status'=>'Elemento eliminado',
+            'solicitudes'=>DB::table('solicitudesusuario')->where('idSolicitud',$idSolicitud)->get(),
         ]);
+
+        
     }
     
     public function entregarSolicitud(){

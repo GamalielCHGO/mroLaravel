@@ -32,39 +32,86 @@
                 <h1 class="fs-1">Elementos a entregar</h1>
             </div>
             <h3>Datos de solicitud: </h3>
-            @if (isset($articulosCarrito[0]))
-                <h4>Id: {{$articulosCarrito[0]->id_solicitud}}</h4>
-                <h4>Tipo: {{$articulosCarrito[0]->tipo}}</h4>
-                <h4>Estado:
-                    @switch($articulosCarrito[0]->estado)
-                    @case('O')
-                        <span class="label label-primary">Abierto</span>
-                        @break
-                    @case('E')
-                        <span class="label label-info">Esperando aprobacion</span>
-                        @break
-                    @case('A')
-                        <span class="label label-warning">Aprobada</span>
-                        
-                        @break
-                    @case('R')
-                        <span class="label label-danger">Rechazada</span>
-                        @break
-                    @default
-                        <span class="label label-success">Entregada</span>
-                    @endswitch 
-                </h4>
-                <h4>Aprobador: {{$aprobador->idAprobador}}</h4>
-                <h4>FechaAprobacion: {{$aprobador->fechaAprobacion==null? "No aprobado": $aprobador->fechaAprobacion}}</h4>        
-            @else
-                <h4>Id: {{$solicitud[0]->id}}</h4>
-                <h4>Tipo: {{$solicitud[0]->tipo}}</h4>
-                <h4>Estado: {{$solicitud[0]->estado}}</h4>
-                <h4>Fecha Entrega/Cancelacion: {{$solicitud[0]->fecha_entrega}}</h4>
-                <h4>Usuario Entrega/Cancelacion: {{$solicitud[0]->usuario_entrega}}</h4>
-                <h4>Departamento: {{$solicitud[0]->departamento}}</h4>
-            @endif
-            
+            <table class="table table-responsive">
+                <thead class="table-primary">
+                    <th>Solicitud</th>
+                    <th>Usuario</th>
+                    <th>Estado</th>
+                    <th>Tipo</th>
+                    <th>Departamento</th>
+                    <th>Detalles</th>
+                    <th>Fecha creacion</th>
+                    <th>Fecha entrega</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{$solicitudes[0]->idSolicitud}}</td>
+                        <td>{{$solicitudes[0]->username}}</td>
+                        @switch($solicitudes[0]->estadoSolicitud)
+                            @case('O')
+                                <td><span class="label label-primary">Abierto</span></td>
+                                @break
+                            @case('E')
+                                <td><span class="label label-info">Esperando aprobacion</span></td>
+                                @break
+                            @case('A')
+                                <td><span class="label label-warning">Aprobada</span>
+                                </td> 
+                                @break
+                            @case('R')
+                                <td><span class="label label-danger">Rechazada</span>
+                                </td>
+                                @break
+                            @default
+                                <td><span class="label label-success">Entregada</span>
+                                </td>
+                        @endswitch
+                        <td>{{$solicitudes[0]->tipo}}</td>
+                        <td>{{$solicitudes[0]->departamento}}</td>
+                        <td>{{$solicitudes[0]->detalles}}</td>
+                        <td>{{$solicitudes[0]->fecha_creacion}}</td>
+                        <td>{{$solicitudes[0]->fecha_entrega}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Datos de aprobacion: </h3>
+            <table class="table table-responsive">
+                <thead class="table-primary">
+                    <th>Id Aprobador</th>
+                    <th>Estado</th>
+                    <th>Fecha aprobacion</th>
+                    <th>Fecha solicitud</th>
+                </thead>
+                <tbody>
+                    @foreach ($solicitudes as $item)
+                        <tr>
+                            <td>{{$item->idAprobador}}</td>
+                            @switch($item->estado)
+                            @case('O')
+                                <td><span class="label label-primary">Abierto</span></td>
+                                @break
+                            @case('E')
+                                <td><span class="label label-info">Esperando aprobacion</span></td>
+                                @break
+                            @case('A')
+                                <td><span class="label label-warning">Aprobada</span>
+                                </td> 
+                                @break
+                            @case('R')
+                                <td><span class="label label-danger">Rechazada</span>
+                                </td>
+                                @break
+                            @default
+                                <td><span class="label label-success">Entregada</span>
+                                </td>
+                        @endswitch
+                            <td>{{$item->fechaAprobacion}}</td>
+                            <td>{{$item->created_at}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
             
             <!-- bug list card end -->
             <div class="card-block">
@@ -81,7 +128,7 @@
                                 <th>precio</th>
                                 <th>CC</th>
                                 <th>Estacion</th>
-                                <th>Estado</th>
+                                <th>Comentarios</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
@@ -100,14 +147,26 @@
                                     </td>
                                     <td>{{$item->descripcion}}</td>
                                     <td>
-                                        <label class="form-label">{{$item->cantidad}}</label>
+                                        <form action="{{route('actualizarCarrito')}}" method="post">
+                                            @csrf
+                                            <div class="row">
+                                                <input type="number" name="idElemento" id="idElemento" value={{$item->id}} class="form-control d-none" >
+                                                <input type="number" name="idSolicitud" id="idSolicitud" value="{{$item->id_solicitud}}" class="form-control d-none" >
+                                                <div class="col">
+                                                    <input type="number" name="cantidad" id="cantidad" value={{$item->cantidad}} class="form-control"  required min=1>
+                                                </div>
+                                                <div class="col">
+                                                    <button type="submit" class="btn btn-success" data-bs-toggle="tooltip" title="Actualizar cantidad"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                                                </div>
+                                              </div>
+                                        </form>
                                     </td>
                                     <td>
                                         <label class="form-label">{{$item->precio}}</label>
                                     </td>
                                     <td>{{$item->cc}}</td>
                                     <td>{{$item->estacion}}</td>
-                                    <td>{{$item->estado}}</td>
+                                    <td><div class="container-fluid">{{$item->comentarios}}</div></td>
                                     <td class="action-icon">
                                         <form action="{{route('eliminarArticuloSolicitud')}}" method="POST">
                                             @csrf

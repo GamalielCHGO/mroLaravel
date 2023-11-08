@@ -85,7 +85,7 @@ Crear solicitud
                             <div class="col-sm-12 col-xl-6 m-b-30">
                                 <h4 class="sub-title">Numero de SAP</h4>
                                 <select name="sap" class="js-example-basic-single col-sm-12 js-example-disabled" required>
-                                    <option value="70030647" selected>70030647</option>
+                                    <option value="{{ Auth::user()->sap }}" selected>{{ Auth::user()->sap }}</option>
                                 </select>
                             </div>
                             <div class="col-sm-12 col-xl-6 m-b-30">
@@ -105,7 +105,6 @@ Crear solicitud
                                     <option value="">...</option>
                                     <option value="Consumibles">Consumibles</option>
                                     <option value="EPP">EPP</option>
-                                    <option value="Refacciones">Refacciones</option>
                                 </select>
                             </div>
 

@@ -62,15 +62,23 @@ Route::get('/listaSolicitudes',[App\Http\Controllers\SolicitudController::class,
 Route::post('/agregarCarrito',[App\Http\Controllers\ElementosSolicitudController::class, 'store'])->name('agregarCarrito'); 
 Route::post('/eliminarSolicitud',[App\Http\Controllers\SolicitudController::class, 'destroy'])->name('eliminarSolicitud');//eliminar solicitud y sus elementos
 Route::get('/eliminarElementoSolicitud',[App\Http\Controllers\SolicitudController::class, 'eliminarElementoSolicitud'])->name('eliminarElementoSolicitud');
+Route::post('/actualizarCarrito',[App\Http\Controllers\SolicitudController::class, 'actualizarCarrito'])->name('actualizarCarrito');
+
+
+
 Route::get('/solicitudLectura/{idSolicitud}/',[App\Http\Controllers\SolicitudController::class, 'solicitudLectura'])->name('solicitudLectura');
 // VISTA GENERAL SOLICITUDES
 Route::get('/listaSolicitudesGlobal',[App\Http\Controllers\SolicitudController::class, 'listaSolicitudesGlobal'])->name('listaSolicitudesGlobal');
+Route::post('/listaSolicitudesGlobalFecha',[App\Http\Controllers\SolicitudController::class, 'listaSolicitudesGlobalFecha'])->name('listaSolicitudesGlobalFecha');
+
 
 // aprobaciones
 // este es el flujo de validacion de aprobaciones
 Route::post('/solicitarAprobacion',[App\Http\Controllers\AprobacionController::class, 'index'])->name('solicitarAprobacion');
 Route::post('/aprobarSolicitud',[App\Http\Controllers\AprobacionController::class, 'aprobarSolicitud'])->name('aprobarSolicitud');
 Route::post('/rechazarSolicitud',[App\Http\Controllers\AprobacionController::class, 'rechazarSolicitud'])->name('rechazarSolicitud');
+
+Route::post('/actualizarCarritoSupervisor',[App\Http\Controllers\AprobacionController::class, 'actualizarCarritoSupervisor'])->name('actualizarCarritoSupervisor');
 
 // vista de aprobaciones
 Route::GET('/pendienteAprobacion',[App\Http\Controllers\AprobacionController::class, 'show'])->name('pendienteAprobacion');

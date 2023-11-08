@@ -28,14 +28,14 @@ Lista articulos
                         <thead class="text-start">
                             <tr>
                                 <th>Imagen</th>
-                                <th>ID</th>
                                 <th>Numero parte</th>
                                 <th>Numero parte old</th>
                                 <th>Descripcion</th>
                                 <th>Tipo</th>
                                 <th>Ubicacion</th>
-                                <th>Precio</th>
-                                <th>Inventario</th>
+                                <th>Precio(USD)</th>
+                                <th>Categoria</th>
+                                <th>Critico</th>
                                 <th>Editar</th>
                             </tr>
                         </thead>
@@ -47,16 +47,21 @@ Lista articulos
                                             <img src="{{old('ruta',$item->rutaResize)}}" alt="Imagen Original" class="img-fluid img-thumbnail" >
                                         </a>
                                     </td>
-                                    <td class="pro-list-img">
-                                        {{$item->id}}
-                                    </td>
                                     <td>{{$item->numero_parte}}</td>
                                     <td>{{$item->numero_parte_old}}</td>
-                                    <td>{{$item->descripcion}}</td>
+                                    <td><textarea style="height: 15%; width:100%"  name="" id="" readonly class="form-control fs-6">{{$item->descripcion}}</textarea></td>
                                     <td>{{$item->tipo}}</td>
                                     <td>{{$item->ubicacion}}</td>
                                     <td>{{$item->precio}}</td>
-                                    <td>{{$item->inventario}}</td>
+                                    <td>{{$item->categoria}}</td>
+                                    @switch($item->critico)
+                                        @case('Y')
+                                        <td>Si</td>        
+                                            @break
+                                        @default
+                                        <td>No</td>
+                                    @endswitch
+                                    
                                     @can('configuracion')
                                         <td><a href="{{ route('articulo', $item) }}"><i class="icofont icofont-pencil-alt-5 fs-5"></a></td>
                                     @else

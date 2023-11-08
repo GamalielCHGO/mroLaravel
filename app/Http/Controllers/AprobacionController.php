@@ -19,6 +19,15 @@ use Illuminate\Support\Facades\Mail;
 class AprobacionController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -82,9 +91,7 @@ class AprobacionController extends Controller
                     // si el tipo de aprobador es diferente al supervisor lo seleccionamos
                     // llamamos a los usuarios con EHS y Gerente
                     $supervisor= User::where('role','=',$key->aprobador)->get();
-                    $supervisorEmail = $supervisor[0]['email'];
-                    $supervisor = $supervisor[0]['username'];
-                    $mensaje['supervisorEmail']=$supervisorEmail;
+                    
                     if ($supervisor == null)
                     {
                         $total= Solicitud::where('estado','=','O')
@@ -99,12 +106,49 @@ class AprobacionController extends Controller
                             'ccs'=>CC::where('estado','=','E')->get(),
                         ]);
                     }
+                    $supervisorEmail = $supervisor[0]['email'];
+                    $supervisor = $supervisor[0]['username'];
+                    $mensaje['supervisorEmail']=$supervisorEmail;
                 }
+
+                // envio de correo supervisor
                 $mensaje['tipo']=$solicitud[0]->tipo;
                 $mensaje['idSolicitud']=$request['idSolicitud'];
                 $mensaje['idSolicitud']=$solicitud[0]->usuario;
                 $mensaje['userMail']=$userMail;
                 $mensaje['username']=Auth::user()->username;
+                // envio de correo
+                Mail::to($supervisorEmail)->queue(new solicitudAprobacion ($mensaje));
+
+
+                // llamamos al gerente
+                $gerente= User::where('role','=','GERENTE')->first();
+                $gerenteEmail = $gerente['email'];
+                $gerente = $gerente['username'];
+                // agregamos aprobacion de gerente para articulos criticos
+                foreach ($solicitud as $key) {
+                    // si es critico creamos la aprobacion
+                    if($key->critico=="Y"){ 
+                        // envio de correo gerente
+                        $mensaje['tipo']=$solicitud[0]->tipo;
+                        $mensaje['idSolicitud']=$request['idSolicitud'];
+                        $mensaje['idSolicitud']=$solicitud[0]->usuario;
+                        $mensaje['userMail']=$userMail;
+                        $mensaje['username']=Auth::user()->username;
+                        $mensaje['supervisorEmail']=$gerenteEmail;
+                        // envio de correo
+                        Mail::to($gerenteEmail)->queue(new solicitudAprobacion ($mensaje));
+                         // crear aprobacion gerente
+                        Aprobacion::create([
+                            'tipo'=>$solicitud[0]->tipo,
+                            'idSolicitud'=>$request['idSolicitud'],
+                            'idUsuario'=>$solicitud[0]->usuario,
+                            'iDAprobador'=>$gerente,
+                            'estado'=>'E',
+                        ]);
+                        break;
+                    }
+                }
                 
                 
                 // agregamos la aprobacion para la solicitud
@@ -128,9 +172,6 @@ class AprobacionController extends Controller
         ->update(['estado' => 'E']);
         ElementosSolicitud::where('id_solicitud', $request['idSolicitud'])
         ->update(['estado' => 'E']);
-
-        // envio de correo
-        Mail::to($supervisorEmail)->queue(new solicitudAprobacion ($mensaje));
 
         return view('home',[
             'cantidadCarrito'=>DB::table('elementoscarrito')->where('usuario','=',$userId)
@@ -184,6 +225,33 @@ class AprobacionController extends Controller
             ->whereIn('id_solicitud',$ids)->orderBy('id_solicitud','asc')->get()
         ]);
     }
+
+    public function actualizarCarritoSupervisor(){
+        $ids=[];
+        $userId=Auth::user()->username;
+        $aprobaciones = DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get();
+        foreach ($aprobaciones as $key => $value) {
+            $ids[]=$value->idSolicitud;
+        }
+
+        $id=request()->idElemento;
+        $cantidad=request()->cantidad;
+
+        ElementosSolicitud::where('id',$id)->update([
+            'cantidad'=>$cantidad,
+        ]);
+
+        return view('aprobacion.pendienteAprobacion',[
+            'aprobaciones'=>DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get(),
+            'ids'=>$ids,
+            'elementosCarrito'=>DB::table('elementoscarrito')
+            ->whereIn('id_solicitud',$ids)->orderBy('id_solicitud','asc')->get()
+        ]);
+
+       
+    }
+
+
 
     public function destroyElementoSolicitud(Request $request){
         $ids=[];

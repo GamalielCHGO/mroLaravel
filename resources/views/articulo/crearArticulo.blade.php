@@ -60,7 +60,6 @@ Crear articulo
                             @enderror
                             <option value="">...</option>
                                 <option value="EPP">EPP</option>
-                                <option value="Refacciones">Refacciones</option>
                                 <option value="Consumibles">Consumibles</option>
                             </select>
                         </div>
@@ -79,7 +78,7 @@ Crear articulo
                         </div>
                         
 
-                        <div class="form-group col-4">
+                        <div class="form-group col-6">
                             <label for="ubicacion">Ubicacion</label>
                             <input type="text" name="ubicacion" placeholder="Ubicacion en MRO" value="{{old('ubicacion')}}" required
                             class="form-control form-txt-primary bg-light shadow-sm @error('ubicacion') is-invalid @else border-0  @enderror">
@@ -89,9 +88,9 @@ Crear articulo
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-4">
-                            <label for="precio">Precio</label>
-                            <input type="number" name="precio" placeholder="Precio" value="{{old('precio')}}" required
+                        <div class="form-group col-6">
+                            <label for="precio">Precio(USD)</label>
+                            <input type="number" name="precio" placeholder="Precio" value="{{old('precio')}}" required step="0.01"
                             class="form-control form-txt-primary bg-light shadow-sm @error('precio') is-invalid @else border-0  @enderror">
                             @error('precio')
                                 <span class="invalid-feedback" role="alert">
@@ -99,7 +98,19 @@ Crear articulo
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-4">
+
+                        <div class="form-group col-6">
+                            <label for="categoria">Categoria</label>
+                            <input type="text" name="categoria" placeholder="Categoria de articulo" value="{{old('categoria')}}" required
+                            class="form-control form-txt-primary bg-light shadow-sm @error('categoria') is-invalid @else border-0  @enderror">
+                            @error('categoria')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{$message}}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group col-6">
                             <label for="precio" class="bg-danger px-2">Critico?</label>
                             <select type="text" name="critico" placeholder="Material Critico" value="{{old('critico')}}" required
                             class="form-control form-txt-primary bg-light shadow-sm @error('critico') is-invalid @else border-0  @enderror">

@@ -22,9 +22,10 @@ return new class extends Migration
             $table->string('ruta');
             $table->string('rutaResize');
             $table->string('ubicacion');
+            $table->string('categoria');
             $table->string('estado')->default('E');
             $table->string('autorizacion')->default('N');
-            $table->integer('precio');
+            $table->float('precio',8,2);
             $table->integer('inventario');
             $table->string('critico')->default('N');
             $table->timestamps();

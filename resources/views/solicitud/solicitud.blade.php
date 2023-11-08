@@ -103,11 +103,11 @@
                                 <th>Imagen</th>
                                 <th>Nombre</th>
                                 <th>Nombre old</th>
-                                <th>Descripcion</th>
                                 <th>Cantidad</th>
                                 <th>precio</th>
                                 <th>CC</th>
                                 <th>Estacion</th>
+                                <th>Comentarios</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
@@ -124,7 +124,6 @@
                                     <td>
                                         {{$item->numero_parte_old}}
                                     </td>
-                                    <td>{{$item->descripcion}}</td>
                                     <td>
                                         <label class="form-label text-danger">{{$item->cantidad}}</label>
                                     </td>
@@ -133,6 +132,7 @@
                                     </td>
                                     <td>{{$item->cc}}</td>
                                     <td>{{$item->estacion}}</td>
+                                    <td><textarea style="height: 15%; width:80%"  name="" id="" readonly class="form-control fs-6">{{$item->comentarios}}</textarea></td>
                                     <td>
                                         <form action="{{route('eliminarElementoSolicitud')}}" method="GET">
                                             @csrf

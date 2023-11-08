@@ -61,7 +61,6 @@ Edicion articulo
                             @enderror
                             <option value="">...</option>
                                 <option value="EPP" @if(old('tipo',$articulo->tipo)=="EPP") selected @endif>EPP</option>
-                                <option value="Refacciones"  @if(old('tipo')=="Refacciones") selected @endif>Refacciones</option>
                                 <option value="Consumibles"  @if(old('tipo')=="Consumibles") selected @endif>Consumibles</option>
                             </select>
                         </div>
@@ -80,7 +79,7 @@ Edicion articulo
                         </div>
                         
 
-                        <div class="form-group col-4">
+                        <div class="form-group col-6">
                             <label for="ubicacion">Ubicacion</label>
                             <input type="text" name="ubicacion" placeholder="Ubicacion en MRO" value="{{old('ubicacion',$articulo->ubicacion)}}" required
                             class="form-control form-txt-primary bg-light shadow-sm @error('ubicacion') is-invalid @else border-0  @enderror">
@@ -90,8 +89,8 @@ Edicion articulo
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-4">
-                            <label for="precio">Precio</label>
+                        <div class="form-group col-6">
+                            <label for="precio">Precio(USD)</label>
                             <input type="number" name="precio" placeholder="Precio" value="{{old('precio',$articulo->precio)}}" required
                             class="form-control form-txt-primary bg-light shadow-sm @error('precio') is-invalid @else border-0  @enderror">
                             @error('precio')
@@ -100,7 +99,20 @@ Edicion articulo
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-4">
+
+                        <div class="form-group col-6">
+                            <label for="categoria">Categoria</label>
+                            <input type="text" name="categoria" placeholder="categoria en MRO" value="{{old('categoria',$articulo->categoria)}}" required
+                            class="form-control form-txt-primary bg-light shadow-sm @error('categoria') is-invalid @else border-0  @enderror">
+                            @error('categoria')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{$message}}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+
+                        <div class="form-group col-6">
                             <label for="precio" class="bg-danger px-2">Critico?</label>
                             <select type="text" name="critico" placeholder="Material Critico" value="{{old('critico')}}" required
                             class="form-control form-txt-primary bg-light shadow-sm @error('critico') is-invalid @else border-0  @enderror">

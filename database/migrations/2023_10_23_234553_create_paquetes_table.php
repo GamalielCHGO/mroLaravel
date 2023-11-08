@@ -13,17 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tb_elementos_solicitudes', function (Blueprint $table) {
+        Schema::create('paquetes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_solicitud');
-            $table->string('id_articulo');
-            $table->integer('cantidad');
-            $table->string('estado')->default('P');
-            $table->string('cc');
-            $table->string('estacion');
-            $table->string('comentarios')->nullable();
             $table->timestamps();
-
         });
     }
 
@@ -34,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_elementos_solicitudes');
+        Schema::dropIfExists('paquetes');
     }
 };

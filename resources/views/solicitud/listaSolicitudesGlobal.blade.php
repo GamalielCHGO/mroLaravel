@@ -10,13 +10,26 @@ Lista de solicitudes
         <div>
             <p class="text-center fw-bold display-2 text-primary">Historico de solicitudes</p>
         </div>
-        
         <!-- tabla de solicitudes -->
         <div class="card">
             <div class="card-header">
-                <h5></h5>
+                <h3>Filtrar por fecha</h3>
                 <div class="card-header-right">
                     <i class="icofont icofont-spinner-alt-5"></i>
+                </div>
+                <div>
+                    <form action="{{route('listaSolicitudesGlobalFecha')}}" method="post">
+                        @csrf
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" name="daterange" class="form-control"
+                                    value="{{$fechaF}} - {{$fechaI}}"/>
+                            </div>
+                            <div class="col">
+                                <button type="submit" class="btn btn-success" data-bs-toggle="tooltip" title="Actualizar cantidad">Buscar <i class="fa fa-search" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="card-block">
@@ -31,6 +44,7 @@ Lista de solicitudes
                                 <th>Tipo</th>
                                 <th>Detalles</th>
                                 <th>Departamento</th>
+                                <th>Costo</th>
                                 <th>Estado</th>
                                 <th>Visualizar</th>
                             </tr>
@@ -44,6 +58,8 @@ Lista de solicitudes
                                     <td>{{$item->tipo}}</td>
                                     <td>{{$item->detalles}}</td>
                                     <td>{{$item->departamento}}</td>
+                                    <td>{{$totales[$item->idSolicitud]}}</td>
+                                    
                                     @switch($item->estado)
                                         @case('O')
                                             <td><span class="label label-primary">Abierto</span></td>

@@ -9,6 +9,7 @@ use App\Models\Estacion;
 use App\Models\Articulo;
 use App\Models\CC;
 use App\Models\ElementosSolicitud;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -212,18 +213,98 @@ class SolicitudController extends Controller
             ->count(),
             'articulosCarrito'=>DB::table('elementoscarrito')->where('id_solicitud','=',$idSolicitud)->get(),
             'aprobador'=>Aprobacion::where('idSolicitud','=',$idSolicitud)->first(),
-            'solicitud'=>DB::table('solicitudesusuario')->where('idSolicitud',$idSolicitud)->get(),
+            'solicitudes'=>DB::table('solicitudesusuario')->where('idSolicitud',$idSolicitud)->get(),
         ]);
     }
 
     public function listaSolicitudesGlobal(){
         $userId=Auth::user()->id;
+        $totales=DB::table('elementoscarrito')->selectRaw('id_solicitud, SUM(total) AS Total')->groupByRaw('id_solicitud')->get();
+        $fechaI=date('m/d/Y');
+        $fechaF=date("m/d/Y",strtotime($fechaI."- 1 week")); 
+        $totalesInd=[];
+        foreach ($totales as $total) {
+            $totalesInd[$total->id_solicitud]=$total->Total;
+        }
+
+        $solicitudes=DB::table('solicitudesusuario')
+        ->select('idSolicitud','username','fecha_creacion','tipo','detalles','departamento','estado')
+        ->groupBy('idSolicitud','username','fecha_creacion','tipo','detalles','departamento','estado')
+        ->orderBy('fecha_creacion','desc')
+        ->limit(100)
+        ->get();
+
         return view ('solicitud.listaSolicitudesGlobal',[
             'cantidadCarrito'=>DB::table('elementoscarrito')->where('usuario','=',$userId)
             ->where('estado','=','O')
             ->count(),
-            'listaSolicitudes'=>DB::table('solicitudesusuario')->orderBy('fecha_creacion','desc')->get()
+            'listaSolicitudes'=>$solicitudes,
+            'totales'=>$totalesInd,
+            'fechaI'=>$fechaI,
+            'fechaF'=>$fechaF,
+            
         ]);
     }
-}
 
+    public function listaSolicitudesGlobalFecha(){
+        $request=request();
+        $request=str_replace(' ','',$request->daterange);
+        $vector=explode('-',$request);
+        $fechaFO=$vector[0];
+        $fechaIO=$vector[1];
+        $fechaFV=explode('/',$fechaFO);
+        $fechaIV=explode('/',$fechaIO);
+        $fechaF=$fechaFV['2'].'-'.$fechaFV['0'].'-'.$fechaFV['1'];
+        $fechaI=$fechaIV['2'].'-'.$fechaIV['0'].'-'.$fechaIV['1'];
+
+        $solicitudes=DB::table('solicitudesusuario')
+        ->select('idSolicitud','username','fecha_creacion','tipo','detalles','departamento','estado')
+        ->groupBy('idSolicitud','username','fecha_creacion','tipo','detalles','departamento','estado')
+        ->whereBetween('fecha_creacion',[$fechaF." 00:00:00",$fechaI." 23:59:59"])
+        ->groupBy('idSolicitud','username')->orderBy('fecha_creacion','desc')->get();
+
+        $userId=Auth::user()->id;
+        $totales=DB::table('elementoscarrito')->selectRaw('id_solicitud, SUM(total) AS Total')->groupByRaw('id_solicitud')->get();
+
+        foreach ($totales as $total) {
+            $totalesInd[$total->id_solicitud]=$total->Total;
+        }
+
+        return view ('solicitud.listaSolicitudesGlobal',[
+            'cantidadCarrito'=>DB::table('elementoscarrito')->where('usuario','=',$userId)
+            ->where('estado','=','O')
+            ->count(),
+            'listaSolicitudes'=>$solicitudes,
+            'totales'=>$totalesInd,
+            'fechaI'=>$fechaIO,
+            'fechaF'=>$fechaFO,
+            
+        ]);
+    }
+
+    public function actualizarCarrito(){
+        
+        $idSolicitud=request()->idSolicitud;
+        $id=request()->idElemento;
+        $cantidad=request()->cantidad;
+
+        ElementosSolicitud::where('id',$id)->update([
+            'cantidad'=>$cantidad,
+        ]);
+
+
+        return view('entrega.entregaArticulos',[
+            'cantidadCarrito'=>DB::table('elementoscarrito')->where('id_solicitud','=',$idSolicitud)
+            ->count(),
+            'solicitud'=>Solicitud::where('id','=',$idSolicitud)->get(),
+            'articulosCarrito'=>DB::table('elementoscarrito')->where('id_solicitud','=',$idSolicitud)->get(),
+            'aprobador'=>Aprobacion::where('idSolicitud','=',$idSolicitud)->first(),
+            'solicitudes'=>DB::table('solicitudesusuario')->where('idSolicitud',$idSolicitud)->get(),
+            'status'=>'Elemento actualizado',
+        ]);
+
+
+    }
+
+    
+}

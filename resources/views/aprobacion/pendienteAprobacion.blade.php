@@ -104,7 +104,7 @@
                                 <div class="table-content">
                                     <div class="project-table">
                                         <table id="e-product-list"
-                                            class="table table-striped dt-responsive nowrap" style="width: 100%;">
+                                            class="table table-striped dt-responsive nowrap" style="width: 150%;">
                                             <thead>
                                                 <tr>
                                                     <th>Producto</th>
@@ -123,7 +123,21 @@
                                                         <td class="pro-name">
                                                             <h6>{{$item->descripcion}}</h6>
                                                         </td>
-                                                        <td>{{$item->cantidad}}</td>
+                                                        <td class="action-icon">
+                                                            <form action="{{route('actualizarCarritoSupervisor')}}" method="post">
+                                                                @csrf
+                                                                <div class="row">
+                                                                    <input type="number" name="idElemento" id="idElemento" value={{$item->id}} class="form-control d-none" >
+                                                                    <input type="number" name="idSolicitud" id="idSolicitud" value="{{$item->id_solicitud}}" class="form-control d-none" >
+                                                                    <div class="col">
+                                                                        <input type="number" name="cantidad" id="cantidad" value={{$item->cantidad}} class="form-control"  required min=1>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <button type="submit" class="btn btn-success" data-bs-toggle="tooltip" title="Actualizar cantidad"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                                                                    </div>
+                                                                  </div>
+                                                            </form>
+                                                        </td>
                                                         <td class="action-icon">
                                                             <form action="{{route('destroyElementoSolicitud')}}" method="GET">
                                                                 @csrf

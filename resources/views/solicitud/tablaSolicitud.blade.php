@@ -34,7 +34,6 @@
                                 <th>Nombre</th>
                                 <th>Nombre old</th>
                                 <th>Descripcion</th>
-                                <th>Cantidad disponible</th>
                                 <th>Carrito</th>
                             </tr>
                         </thead>
@@ -52,9 +51,6 @@
                                         {{$item->numero_parte_old}}
                                     </td>
                                     <td>{{$item->descripcion}}</td>
-                                    <td>
-                                        <label class="form-label text-danger">{{$item->inventario}}</label>
-                                    </td>
                                     <td >
                                         <form action="{{route('agregarCarrito')}}" method="post">
                                             @csrf
@@ -64,7 +60,8 @@
                                                         <i class="icofont icofont-ui-calculator"></i>
                                                     </span>
                                                 </div>
-                                                <input name="cantidad" type="number" class="form-control" placeholder="Cantidad" title="Cantidad" data-bs-toggle="tooltip" value="0">
+                                                <input name="cantidad" type="number" class="form-control" placeholder="Cantidad" title="Cantidad" data-bs-toggle="tooltip" value="0" required min=1>
+                                                <input name="comentarios" type="text" class="form-control" placeholder="Comentarios" title="Comentarios" data-bs-toggle="tooltip" maxlength="50">
                                                 <input name="idSolicitud" type="text" value="{{$solicitud->id}}" class="d-none">
                                                 <input name="cc" type="text" value="{{$cc->cc}}" class="d-none">
                                                 <input name="estacion" type="text" value="{{$estacion}}" class="d-none">

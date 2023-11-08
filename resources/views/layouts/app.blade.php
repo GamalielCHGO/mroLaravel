@@ -44,6 +44,15 @@
     <link rel="stylesheet" type="text/css" href="/mro/public/files/bower_components/jquery-bar-rating/dist/themes/fontawesome-stars.css">
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href="/mro/public/files/assets/icon/icofont/css/icofont.css">
+    <!-- Date-time picker css -->
+    <link rel="stylesheet" type="text/css"
+        href="/mro/public/files/assets/pages/advance-elements/css/bootstrap-datetimepicker.css">
+    <!-- Date-range picker css  -->
+    <link rel="stylesheet" type="text/css"
+        href="/mro/public/files/bower_components/bootstrap-daterangepicker/daterangepicker.css" />
+    <!-- Date-Dropper css -->
+    <link rel="stylesheet" type="text/css" href="/mro/public/files/bower_components/datedropper/datedropper.min.css" />
+
     <!-- Data Table Css -->
     <link rel="stylesheet" type="text/css"
     href="/mro/public/files/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
@@ -505,15 +514,45 @@
     <script type="text/javascript" src="/mro/public/files/bower_components/i18next-xhr-backend/i18nextXHRBackend.min.js"></script>
     <script type="text/javascript" src="/mro/public/files/bower_components/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
     <script type="text/javascript" src="/mro/public/files/bower_components/jquery-i18next/jquery-i18next.min.js"></script>
+
+    <!-- Bootstrap date-time-picker js -->
+    <script type="text/javascript" src="/mro/public/files/assets/pages/advance-elements/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="/mro/public/files/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="/mro/public/files/assets/pages/advance-elements/bootstrap-datetimepicker.min.js"></script>
+    <!-- Date-range picker js -->
+    <script type="text/javascript" src="/mro/public/files/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="/mro/public/files/bower_components/datedropper/datedropper.min.js"></script>
+
+    
+
     <!-- Select 2 js -->
     <script type="text/javascript" src="/mro/public/files/bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- Multiselect js -->
     <script type="text/javascript" src="/mro/public/files/bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"> </script>
     <script type="text/javascript" src="/mro/public/files/bower_components/multiselect/js/jquery.multi-select.js"></script>
     <script type="text/javascript" src="/mro/public/files/assets/js/jquery.quicksearch.js"></script>
+    <script type="text/javascript" src="/mro/public/files/assets/pages/advance-elements/custom-picker.js"></script>
 
 
-    
+    <!-- Color picker js -->
+    <script type="text/javascript" src="../files/bower_components/spectrum/spectrum.js"></script>
+    <script type="text/javascript" src="../files/bower_components/jscolor/jscolor.js"></script>
+    <!-- Mini-color js -->
+    <script type="text/javascript" src="../files/bower_components/jquery-minicolors/jquery.minicolors.min.js"></script>
+    <!-- i18next.min.js -->
+    <script type="text/javascript" src="../files/bower_components/i18next/i18next.min.js"></script>
+    <script type="text/javascript"
+        src="../files/bower_components/i18next-xhr-backend/i18nextXHRBackend.min.js"></script>
+    <script type="text/javascript"
+        src="../files/bower_components/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
+    <script type="text/javascript" src="../files/bower_components/jquery-i18next/jquery-i18next.min.js"></script>
+    <!-- Custom js -->
+
+    <script type="text/javascript" src="../files/assets/pages/advance-elements/custom-picker.js"></script>
+    <script src="../files/assets/js/pcoded.min.js"></script>
+    <script src="../files/assets/js/vartical-layout.min.js"></script>
+    <script src="../files/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="../files/assets/js/script.js"></script>
 
     
 </body>

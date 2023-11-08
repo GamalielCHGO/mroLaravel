@@ -26,6 +26,7 @@ class Articulo extends Model
         'ubicacion',
         'precio',
         'inventario',
-        'critico'
+        'critico',
+        'categoria',
     ];
 }

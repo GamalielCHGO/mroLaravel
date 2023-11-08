@@ -61,6 +61,7 @@ class ElementosSolicitudController extends Controller
             'cantidad'=>$request['cantidad'],
             'cc'=>$request['cc'],
             'estacion'=>$request['estacion'],
+            'comentarios'=>$request['comentarios'],
         ]);
         
 
