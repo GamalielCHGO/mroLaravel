@@ -62,6 +62,10 @@
                                 <td><span class="label label-danger">Rechazada</span>
                                 </td>
                                 @break
+                            @case('EP')
+                                <td><span class="label label-primary">Entrega Parcial</span>
+                                </td>
+                                @break
                             @default
                                 <td><span class="label label-success">Entregada</span>
                                 </td>
@@ -102,6 +106,10 @@
                                 <td><span class="label label-danger">Rechazada</span>
                                 </td>
                                 @break
+                                @case('EP')
+                                <td><span class="label label-primary">Entrega Parcial</span>
+                                </td>
+                                @break
                             @default
                                 <td><span class="label label-success">Entregada</span>
                                 </td>
@@ -129,6 +137,7 @@
                                 <th>CC</th>
                                 <th>Estacion</th>
                                 <th>Comentarios</th>
+                                <th>Postergar</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
@@ -168,6 +177,15 @@
                                     <td>{{$item->estacion}}</td>
                                     <td><div class="container-fluid">{{$item->comentarios}}</div></td>
                                     <td class="action-icon">
+                                        <form action="{{route('postergarArticuloSolicitud')}}" method="POST">
+                                            @csrf
+                                            <input type="text" name="idSolicitud" id="idSolicitud" value="{{$item->id_solicitud}}" class='d-none'>
+                                            <input type="text" name="idArticulo" id="idArticulo" value="{{$item->id}}" class='d-none'>
+                                            <input type="text" name="ruta" id="ruta" value="solicitud" class='d-none'>
+                                            <button type="submit" class="btn btn-warning"><i class="fa fa-cloud fs-5" aria-hidden="true"></i></button>
+                                        </form>
+                                    </td>
+                                    <td class="action-icon">
                                         <form action="{{route('eliminarArticuloSolicitud')}}" method="POST">
                                             @csrf
                                             <input type="text" name="idSolicitud" id="idSolicitud" value="{{$item->id_solicitud}}" class='d-none'>
@@ -188,7 +206,7 @@
                     <div class="cols-11 text-center">
                         <form action="{{route('entregarSolicitud')}}" method="POST">
                             @csrf
-                            <input type="text" name="idSolicitud" id="idSolicitud" value="{{$item->id_solicitud}}" class='d-none'>
+                            <input type="text" name="idSolicitud" id="idSolicitud" value="{{$solicitudes[0]->idSolicitud}}" class='d-none'>
                             <button type="submit" class="btn btn-success"><i class="fa fa-check fs-5" aria-hidden="true"></i>Marcar como entregado</button>
                         </form>
                     </div>

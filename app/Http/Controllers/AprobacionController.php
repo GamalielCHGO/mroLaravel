@@ -270,38 +270,41 @@ class AprobacionController extends Controller
     }
 
     public function aprobarSolicitud(){
+        $userId=Auth::user()->username;
         $idSolicitud=request()->id;
-        Solicitud::where('id',$idSolicitud)->update([
-            'estado'=>'A'
-        ]);
-        ElementosSolicitud::where('id_solicitud',$idSolicitud)->update([
-            'estado'=>'A'
-        ]);
-        Aprobacion::where('idSolicitud',$idSolicitud)->update([
+        Aprobacion::where('idSolicitud',$idSolicitud)->where('idAprobador',$userId)->update([
             'estado'=>'A',
             'fechaAprobacion'=>now()
         ]);
+        $pendientes = Aprobacion::where('idSolicitud',$idSolicitud)->where('estado','E')->get();
+        if(!$pendientes->count()>0){
 
-        $mensaje=[];
-        $solicitudInformacion=Solicitud::where('id',$idSolicitud)->get();
-        $isUsuario=$solicitudInformacion[0]['usuario'];
-        $datosUsuario=User::where('id',$isUsuario)->first();
-        $mensaje['name']=$datosUsuario['name'];
-        $mensaje['lastname']=$datosUsuario['lastname'];
-        $mensaje['email']=$datosUsuario['email'];
-        $mensaje['solicitud']=$idSolicitud;
-        $mensaje['estado']='Aprobada';
-        Mail::to($datosUsuario['email'])->queue(new solicitudAprobada ($mensaje));
+            Solicitud::where('id',$idSolicitud)->update([
+                'estado'=>'A'
+            ]);
+            ElementosSolicitud::where('id_solicitud',$idSolicitud)->update([
+                'estado'=>'A'
+            ]);
+            
+    
+            $mensaje=[];
+            $solicitudInformacion=Solicitud::where('id',$idSolicitud)->get();
+            $isUsuario=$solicitudInformacion[0]['usuario'];
+            $datosUsuario=User::where('id',$isUsuario)->first();
+            $mensaje['name']=$datosUsuario['name'];
+            $mensaje['lastname']=$datosUsuario['lastname'];
+            $mensaje['email']=$datosUsuario['email'];
+            $mensaje['solicitud']=$idSolicitud;
+            $mensaje['estado']='Aprobada';
+            Mail::to($datosUsuario['email'])->queue(new solicitudAprobada ($mensaje));
 
+        }
         $ids=[];
         $userId=Auth::user()->username;
         $aprobaciones = DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get();
         foreach ($aprobaciones as $key => $value) {
             $ids[]=$value->idSolicitud;
         }
-        
-        
-
         return view('aprobacion.pendienteAprobacion',[
             'aprobaciones'=>DB::table('solicitudesusuario')->where('idAprobador','=',$userId)->where('estado','=','E')->get(),
             'ids'=>$ids,
@@ -309,6 +312,7 @@ class AprobacionController extends Controller
             ->whereIn('id_solicitud',$ids)->orderBy('id_solicitud','asc')->get(),
             'status'=>'Solicitud aprobada'
         ]);
+        
     }
 
     public function rechazarSolicitud(){

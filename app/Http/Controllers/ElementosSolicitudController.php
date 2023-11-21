@@ -7,6 +7,7 @@ use App\Models\Estacion;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Integer;
 
 class ElementosSolicitudController extends Controller
 {
@@ -17,7 +18,7 @@ class ElementosSolicitudController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -72,6 +73,35 @@ class ElementosSolicitudController extends Controller
         //     'status'=>'El articulo fue agregado al carrito'
         // ]);
         return redirect()->route('crearSolicitud')->with('status','El articulo fue agregado con exito');
+    }
+
+    public function GuardarElementoCarrito(Request $request)
+    {
+        
+        request()->validate([
+            'idSolicitud'=>['required'],
+            'idArticulo'=>'required',
+            'cantidad'=>'required',
+            'cc'=>['required'],
+            'estacion'=>'required',
+        ]);
+        ElementosSolicitud::create([
+            'id_solicitud'=>$request['idSolicitud'],
+            'id_articulo'=>$request['idArticulo'],
+            'cantidad'=>$request['cantidad'],
+            'cc'=>$request['cc'],
+            'estacion'=>$request['estacion'],
+            'comentarios'=>$request['comentarios'],
+        ]);
+        
+
+        // return view('solicitud.solicitud',[
+        //     'solicitud'=>Solicitud::where('id','=',$request['idSolicitud'])->get(),
+        //     'estaciones'=>Estacion::where('estado','=','E')->get(),
+        //     'articulosCarrito'=>DB::table('elementoscarrito')->where('id_Solicitud','=',$request['idSolicitud'])->get(),
+        //     'status'=>'El articulo fue agregado al carrito'
+        // ]);
+        return "Se agregaron con existo los articulos";
 
 
     }

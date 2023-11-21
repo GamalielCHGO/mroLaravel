@@ -79,6 +79,11 @@ Lista de solicitudes
                                             <td><a href="{{route('solicitudLectura',$item->idSolicitud) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
                                             </td>
                                             @break
+                                        @case('EP')
+                                            <td><span class="label label-primary">Entrega Parcial</span>
+                                            <td><a href="{{route('solicitudLectura',$item->idSolicitud) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>
+                                            </td>
+                                            @break
                                         @default
                                             <td><span class="label label-success">Entregada</span>
                                             <td><a href="{{route('solicitudLectura',$item->idSolicitud) }}"><i class="fa fa-eye fs-5" aria-hidden="true"></i></a></td>

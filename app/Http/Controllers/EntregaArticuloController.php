@@ -19,8 +19,12 @@ class EntregaArticuloController extends Controller
      */
     public function index()
     {
+        
+        $datos = DB::table('solicitudesusuario')->where('estado','A')->orwhere('estado','EP')
+        ->select( 'idSolicitud','estado','tipo','username','detalles','fecha_creacion','departamento')
+        ->groupByRaw('idSolicitud,estado,tipo,username,detalles,fecha_creacion,departamento')->latest('fecha_creacion')->get();
         return view('entrega.listaEntregaArticulos',[
-            'listaSolicitudes'=>DB::table('solicitudesusuario')->where('estado','A')->latest('fecha_creacion')->get(),
+            'listaSolicitudes'=>$datos,
         ]);
     }
 
@@ -53,12 +57,12 @@ class EntregaArticuloController extends Controller
      */
     public function show($idSolicitud)
     {
- 
+        $articulos = DB::table('elementoscarrito')->where('estado','=','A')->where('id_solicitud','=',$idSolicitud)->get();
         return view('entrega.entregaArticulos',[
             'cantidadCarrito'=>DB::table('elementoscarrito')->where('id_solicitud','=',$idSolicitud)
             ->count(),
             'solicitud'=>Solicitud::where('id','=',$idSolicitud)->get(),
-            'articulosCarrito'=>DB::table('elementoscarrito')->where('id_solicitud','=',$idSolicitud)->get(),
+            'articulosCarrito'=>$articulos,
             'aprobador'=>Aprobacion::where('idSolicitud','=',$idSolicitud)->first(),
             'solicitudes'=>DB::table('solicitudesusuario')->where('idSolicitud',$idSolicitud)->get(),
         ]);
@@ -122,8 +126,17 @@ class EntregaArticuloController extends Controller
             'status'=>'Elemento eliminado',
             'solicitudes'=>DB::table('solicitudesusuario')->where('idSolicitud',$idSolicitud)->get(),
         ]);
+    }
 
-        
+    public function postergar()
+    {
+        $request = request();
+        $idSolicitud=$request->idSolicitud;
+        // Eliminando elemento
+        ElementosSolicitud::where('id','=',$request->idArticulo)->update([
+            'estado'=>'P'
+        ]);
+        return $this->show($idSolicitud);
     }
     
     public function entregarSolicitud(){
@@ -134,24 +147,44 @@ class EntregaArticuloController extends Controller
         $articulos = ElementosSolicitud::where('id_solicitud','=',$idSolicitud)->get();
 
         foreach ($articulos as $articulo) {
-            Articulo::where('id',$articulo->id_articulo)->decrement(
+            Articulo::where('id',$articulo->id_articulo)->where('estado','A')->decrement(
                 'inventario',$articulo->cantidad);    
         }
+            $pendientes=ElementosSolicitud::where('id_solicitud','=',$idSolicitud)->where('estado','P')->first();
+
+            if(!is_null($pendientes))
+            {
+                Solicitud::where('id','=',$idSolicitud)->update([
+                    'estado'=>'EP',
+                    'usuario_entrega'=>Auth::user()->username,
+                    'fecha_entrega'=>DB::raw('NOW()'),
+                ]);
+                ElementosSolicitud::where('id_solicitud','=',$idSolicitud)->where('estado','A')->update([
+                    'estado'=>'F',
+                ]);
+                ElementosSolicitud::where('id_solicitud','=',$idSolicitud)->where('estado','P')->update([
+                    'estado'=>'A',
+                ]);
+                Aprobacion::where('idSolicitud','=',$idSolicitud)->update([
+                    'estado'=>'A',
+                ]);
+            }
+            else
+            {
+                Solicitud::where('id','=',$idSolicitud)->update([
+                    'estado'=>'F',
+                    'usuario_entrega'=>Auth::user()->username,
+                    'fecha_entrega'=>DB::raw('NOW()'),
+                ]);
+                ElementosSolicitud::where('id_solicitud','=',$idSolicitud)->update([
+                    'estado'=>'F',
+                ]);
+                Aprobacion::where('idSolicitud','=',$idSolicitud)->update([
+                    'estado'=>'F',
+                ]);
+            }
+
         
-        Solicitud::where('id','=',$idSolicitud)->update([
-            'estado'=>'F',
-            'usuario_entrega'=>Auth::user()->username,
-            'fecha_entrega'=>DB::raw('NOW()'),
-        ]);
-        Aprobacion::where('idSolicitud','=',$idSolicitud)->update([
-            'estado'=>'F',
-        ]);
-
-        ElementosSolicitud::where('id_solicitud','=',$idSolicitud)->update([
-            'estado'=>'F',
-        ]);
-
-
         return view('entrega.listaEntregaArticulos',[
             'listaSolicitudes'=>DB::table('solicitudesusuario')->where('estado','A')->latest('fecha_creacion')->get(),
             'status'=>'Solicitud '. $idSolicitud.' entregada a ' 

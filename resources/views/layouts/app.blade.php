@@ -21,57 +21,57 @@
         content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="#">
     <!-- Favicon icon -->
-    <link rel="icon" href="/mro/public/img/T.png">
+    <link rel="icon" href="/public/img/T.png">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <!-- Required Fremwork -->
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/files/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- sweet alert framework -->
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/assets/css/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="/public/files/assets/css/sweetalert.css">
     <!-- feather Awesome -->
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/assets/icon/feather/css/feather.css">
+    <link rel="stylesheet" type="text/css" href="/public/files/assets/icon/feather/css/feather.css">
     <!-- Switch component css -->
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/bower_components/switchery/dist/switchery.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/files/bower_components/switchery/dist/switchery.min.css">
     <!-- Tags css -->
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" />
+    <link rel="stylesheet" type="text/css" href="/public/files/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" />
     <!-- lightbox Fremwork -->
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/bower_components/lightbox2/dist/css/lightbox.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/files/bower_components/lightbox2/dist/css/lightbox.min.css">
     <!-- themify-icons line icon -->
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/assets/icon/themify-icons/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="/public/files/assets/icon/themify-icons/themify-icons.css">
     <!-- Font awesome star css -->
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/files/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Font awesome star css -->
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/bower_components/jquery-bar-rating/dist/themes/fontawesome-stars.css">
+    <link rel="stylesheet" type="text/css" href="/public/files/bower_components/jquery-bar-rating/dist/themes/fontawesome-stars.css">
     <!-- ico font -->
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/assets/icon/icofont/css/icofont.css">
+    <link rel="stylesheet" type="text/css" href="/public/files/assets/icon/icofont/css/icofont.css">
     <!-- Date-time picker css -->
     <link rel="stylesheet" type="text/css"
-        href="/mro/public/files/assets/pages/advance-elements/css/bootstrap-datetimepicker.css">
+        href="/public/files/assets/pages/advance-elements/css/bootstrap-datetimepicker.css">
     <!-- Date-range picker css  -->
     <link rel="stylesheet" type="text/css"
-        href="/mro/public/files/bower_components/bootstrap-daterangepicker/daterangepicker.css" />
+        href="/public/files/bower_components/bootstrap-daterangepicker/daterangepicker.css" />
     <!-- Date-Dropper css -->
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/bower_components/datedropper/datedropper.min.css" />
+    <link rel="stylesheet" type="text/css" href="/public/files/bower_components/datedropper/datedropper.min.css" />
 
     <!-- Data Table Css -->
     <link rel="stylesheet" type="text/css"
-    href="/mro/public/files/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/assets/pages/data-table/css/buttons.dataTables.min.css">
+    href="/public/files/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/files/assets/pages/data-table/css/buttons.dataTables.min.css">
     <link rel="stylesheet" type="text/css"
-    href="/mro/public/files/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
+    href="/public/files/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
     {{-- personal --}}
-    <link rel="stylesheet" type="text/css" href="/mro/public/css/app.css">
-    <link rel="stylesheet" href="/mro/public/files/bower_components/select2/dist/css/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="/public/css/app.css">
+    <link rel="stylesheet" href="/public/files/bower_components/select2/dist/css/select2.min.css" />
     <!-- Multi Select css -->
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/bower_components/bootstrap-multiselect/dist/css/bootstrap-multiselect.css" />
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/bower_components/multiselect/css/multi-select.css" />
+    <link rel="stylesheet" type="text/css" href="/public/files/bower_components/bootstrap-multiselect/dist/css/bootstrap-multiselect.css" />
+    <link rel="stylesheet" type="text/css" href="/public/files/bower_components/multiselect/css/multi-select.css" />
 
     <!-- animation nifty modal window effects css -->
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/assets/css/component.css">
+    <link rel="stylesheet" type="text/css" href="/public/files/assets/css/component.css">
 
     <!-- Style.css deben estar al final-->
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/mro/public/files/assets/css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" type="text/css" href="/public/files/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/public/files/assets/css/jquery.mCustomScrollbar.css">
     
     
 </head>
@@ -127,7 +127,7 @@
                             <i class="feather icon-menu"></i>
                         </a>
                         <a href="{{ route("home")}}">
-                            <img class="img-fluid" src="/mro/public/img/logoT5.png" alt="Theme-Logo" />
+                            <img class="img-fluid" src="/public/img/logoT5.png" alt="Theme-Logo" />
                         </a>
                         <a class="mobile-options">
                             <i class="feather icon-more-horizontal"></i>
@@ -392,31 +392,31 @@
         <ul class="iew-download">
             <li>
                 <a href="http://www.google.com/chrome/">
-                    <img src="/mro/public/files/assets/images/browser/chrome.png" alt="Chrome">
+                    <img src="/public/files/assets/images/browser/chrome.png" alt="Chrome">
                     <div>Chrome</div>
                 </a>
             </li>
             <li>
                 <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="/mro/public/files/assets/images/browser/firefox.png" alt="Firefox">
+                    <img src="/public/files/assets/images/browser/firefox.png" alt="Firefox">
                     <div>Firefox</div>
                 </a>
             </li>
             <li>
                 <a href="http://www.opera.com">
-                    <img src="/mro/public/files/assets/images/browser/opera.png" alt="Opera">
+                    <img src="/public/files/assets/images/browser/opera.png" alt="Opera">
                     <div>Opera</div>
                 </a>
             </li>
             <li>
                 <a href="https://www.apple.com/safari/">
-                    <img src="/mro/public/files/assets/images/browser/safari.png" alt="Safari">
+                    <img src="/public/files/assets/images/browser/safari.png" alt="Safari">
                     <div>Safari</div>
                 </a>
             </li>
             <li>
                 <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="/mro/public/files/assets/images/browser/ie.png" alt="">
+                    <img src="/public/files/assets/images/browser/ie.png" alt="">
                     <div>IE (9 & above)</div>
                 </a>
             </li>
@@ -427,47 +427,47 @@
 <![endif]-->
     <!-- Warning Section Ends -->
     <!-- Required Jquery -->
-    <script type="text/javascript" src="/mro/public/files/bower_components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="/mro/public/files/bower_components/jquery-ui/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="/mro/public/files/bower_components/popper.js/dist/umd/popper.min.js"></script>
-    <script type="text/javascript" src="/mro/public/files/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/popper.js/dist/umd/popper.min.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- jquery slimscroll js -->
-    <script type="text/javascript" src="/mro/public/files/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
     <!-- modernizr js -->
-    <script type="text/javascript" src="/mro/public/files/bower_components/modernizr/modernizr.js"></script>
-    <script type="text/javascript" src="/mro/public/files/bower_components/modernizr/feature-detects/css-scrollbars.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/modernizr/modernizr.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/modernizr/feature-detects/css-scrollbars.js"></script>
     {{-- lightbox --}}
-    <script type="text/javascript" src="/mro/public/files/bower_components/lightbox2/dist/js/lightbox.min.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/lightbox2/dist/js/lightbox.min.js"></script>
     <!-- Switch component js -->
-    <script type="text/javascript" src="/mro/public/files/bower_components/switchery/dist/switchery.min.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/switchery/dist/switchery.min.js"></script>
     <!-- Tags js -->
     <script type="text/javascript"
-        src="/mro/public/files/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js"></script>
+        src="/public/files/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js"></script>
     <!-- Max-length js -->
     <script type="text/javascript"
-        src="/mro/public/files/bower_components/bootstrap-maxlength/src/bootstrap-maxlength.js"></script>
+        src="/public/files/bower_components/bootstrap-maxlength/src/bootstrap-maxlength.js"></script>
     <!-- sweet alert js -->
-    <script type="text/javascript" src="/mro/public/files/assets/js/sweetalert.js"></script>
-    <script type="text/javascript" src="/mro/public/files/assets/js/modal.js"></script> 
+    <script type="text/javascript" src="/public/files/assets/js/sweetalert.js"></script>
+    <script type="text/javascript" src="/public/files/assets/js/modal.js"></script> 
     <!-- sweet alert modal.js intialize js -->
     <!-- modalEffects js nifty modal window effects -->
-    <script type="text/javascript" src="/mro/public/files/assets/js/modalEffects.js"></script>
-    <script type="text/javascript" src="/mro/public/files/assets/js/classie.js"></script>
+    <script type="text/javascript" src="/public/files/assets/js/modalEffects.js"></script>
+    <script type="text/javascript" src="/public/files/assets/js/classie.js"></script>
 
     <!-- Chart js -->
-    <script type="text/javascript" src="/mro/public/files/bower_components/chart.js/dist/Chart.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/chart.js/dist/Chart.js"></script>
     <!-- amchart js -->
-    <script src="/mro/public/files/assets/pages/widget/amchart/amcharts.js"></script>
-    <script src="/mro/public/files/assets/pages/widget/amchart/serial.js"></script>
-    <script src="/mro/public/files/assets/pages/widget/amchart/light.js"></script>
-    <script type="text/javascript" src="/mro/public/files/assets/js/SmoothScroll.js"></script>
-    <script type="text/javascript" src="/mro/public/files/assets/pages/issue-list/issue-list.js"></script>
+    <script src="/public/files/assets/pages/widget/amchart/amcharts.js"></script>
+    <script src="/public/files/assets/pages/widget/amchart/serial.js"></script>
+    <script src="/public/files/assets/pages/widget/amchart/light.js"></script>
+    <script type="text/javascript" src="/public/files/assets/js/SmoothScroll.js"></script>
+    <script type="text/javascript" src="/public/files/assets/pages/issue-list/issue-list.js"></script>
     <!-- custom js -->
-    <script type="text/javascript" src="/mro/public/files/assets/pages/dashboard/custom-dashboard.js"></script>
-    <script type="text/javascript" src="/mro/public/files/assets/js/script.min.js"></script>
-    <script src="/mro/public/files/assets/pages/data-table/js/data-table-custom.js"></script>
-    <script type="text/javascript" src="/mro/public/files/assets/pages/advance-elements/swithces.js"></script>
+    <script type="text/javascript" src="/public/files/assets/pages/dashboard/custom-dashboard.js"></script>
+    <script type="text/javascript" src="/public/files/assets/js/script.min.js"></script>
+    <script src="/public/files/assets/pages/data-table/js/data-table-custom.js"></script>
+    <script type="text/javascript" src="/public/files/assets/pages/advance-elements/swithces.js"></script>
 {{-- tooltips --}}
 <script>
     $(document).ready(function () {
@@ -490,48 +490,48 @@
 
 </script>
         {{-- customs js  --}}
-        <script type="text/javascript" src="/mro/public/files/assets/pages/advance-elements/select2-custom.js"></script>
-        <script src="/mro/public/files/assets/js/pcoded.min.js"></script>
-        <script src="/mro/public/files/assets/js/vartical-layout.min.js"></script>
-        <script src="/mro/public/files/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script type="text/javascript" src="/mro/public/files/assets/js/script.js"></script>
+        <script type="text/javascript" src="/public/files/assets/pages/advance-elements/select2-custom.js"></script>
+        <script src="/public/files/assets/js/pcoded.min.js"></script>
+        <script src="/public/files/assets/js/vartical-layout.min.js"></script>
+        <script src="/public/files/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script type="text/javascript" src="/public/files/assets/js/script.js"></script>
         
 
     <!-- data-table js -->
-    <script src="/mro/public/files/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="/mro/public/files/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="/mro/public/files/assets/pages/data-table/js/jszip.min.js"></script>
-    <script src="/mro/public/files/assets/pages/data-table/js/pdfmake.min.js"></script>
-    <script src="/mro/public/files/assets/pages/data-table/js/vfs_fonts.js"></script>
-    <script src="/mro/public/files/bower_components/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="/mro/public/files/bower_components/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="/mro/public/files/assets/pages/data-table/js/dataTables.bootstrap4.min.js"></script>
-    <script src="/mro/public/files/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="/mro/public/files/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="/mro/public/files/assets/pages/sparkline/jquery.sparkline.js"></script>
+    <script src="/public/files/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/public/files/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/public/files/assets/pages/data-table/js/jszip.min.js"></script>
+    <script src="/public/files/assets/pages/data-table/js/pdfmake.min.js"></script>
+    <script src="/public/files/assets/pages/data-table/js/vfs_fonts.js"></script>
+    <script src="/public/files/bower_components/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="/public/files/bower_components/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="/public/files/assets/pages/data-table/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/public/files/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/public/files/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="/public/files/assets/pages/sparkline/jquery.sparkline.js"></script>
     <!-- i18next.min.js -->
-    <script type="text/javascript" src="/mro/public/files/bower_components/i18next/i18next.min.js"></script>
-    <script type="text/javascript" src="/mro/public/files/bower_components/i18next-xhr-backend/i18nextXHRBackend.min.js"></script>
-    <script type="text/javascript" src="/mro/public/files/bower_components/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
-    <script type="text/javascript" src="/mro/public/files/bower_components/jquery-i18next/jquery-i18next.min.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/i18next/i18next.min.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/i18next-xhr-backend/i18nextXHRBackend.min.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/jquery-i18next/jquery-i18next.min.js"></script>
 
     <!-- Bootstrap date-time-picker js -->
-    <script type="text/javascript" src="/mro/public/files/assets/pages/advance-elements/moment-with-locales.min.js"></script>
-    <script type="text/javascript" src="/mro/public/files/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="/mro/public/files/assets/pages/advance-elements/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="/public/files/assets/pages/advance-elements/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="/public/files/assets/pages/advance-elements/bootstrap-datetimepicker.min.js"></script>
     <!-- Date-range picker js -->
-    <script type="text/javascript" src="/mro/public/files/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <script type="text/javascript" src="/mro/public/files/bower_components/datedropper/datedropper.min.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/datedropper/datedropper.min.js"></script>
 
     
 
     <!-- Select 2 js -->
-    <script type="text/javascript" src="/mro/public/files/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- Multiselect js -->
-    <script type="text/javascript" src="/mro/public/files/bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"> </script>
-    <script type="text/javascript" src="/mro/public/files/bower_components/multiselect/js/jquery.multi-select.js"></script>
-    <script type="text/javascript" src="/mro/public/files/assets/js/jquery.quicksearch.js"></script>
-    <script type="text/javascript" src="/mro/public/files/assets/pages/advance-elements/custom-picker.js"></script>
+    <script type="text/javascript" src="/public/files/bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"> </script>
+    <script type="text/javascript" src="/public/files/bower_components/multiselect/js/jquery.multi-select.js"></script>
+    <script type="text/javascript" src="/public/files/assets/js/jquery.quicksearch.js"></script>
+    <script type="text/javascript" src="/public/files/assets/pages/advance-elements/custom-picker.js"></script>
 
 
     <!-- Color picker js -->

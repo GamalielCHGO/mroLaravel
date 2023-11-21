@@ -53,6 +53,10 @@
                                 <td><span class="label label-danger">Rechazada</span>
                                 </td>
                                 @break
+                            @case('EP')
+                                <td><span class="label label-primary">Entrega Parcial</span>
+                                </td>
+                                @break
                             @default
                                 <td><span class="label label-success">Entregada</span>
                                 </td>
@@ -91,6 +95,10 @@
                                 @break
                             @case('R')
                                 <td><span class="label label-danger">Rechazada</span>
+                                </td>
+                                @break
+                            @case('EP')
+                                <td><span class="label label-primary">Entrega Parcial</span>
                                 </td>
                                 @break
                             @default
@@ -145,7 +153,29 @@
                                     </td>
                                     <td>{{$item->cc}}</td>
                                     <td>{{$item->estacion}}</td>
-                                    <td>{{$item->estado}}</td>
+                                    @switch($item->estado)
+                                        @case('O')
+                                            <td>Abierto</td>
+                                            @break
+                                        @case('E')
+                                            <td>Esperando aprobacion</td>
+                                            @break
+                                        @case('A')
+                                            <td>Aprobada
+                                            </td> 
+                                            @break
+                                        @case('R')
+                                            <td>Rechazada
+                                            </td>
+                                            @break
+                                        @case('EP')
+                                            <td>Entrega Parcial
+                                            </td>
+                                            @break
+                                        @default
+                                            <td>Entregada
+                                            </td>
+                                    @endswitch
                                 </tr>
                             @empty
                                 <tr>No hay articulos para mostrar</tr>

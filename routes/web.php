@@ -60,6 +60,8 @@ Route::post('/solicitud',[App\Http\Controllers\SolicitudController::class, 'nuev
 Route::post('/tablaSolicitud',[App\Http\Controllers\SolicitudController::class, 'tablaSolicitud'])->name('tablaSolicitud');
 Route::get('/listaSolicitudes',[App\Http\Controllers\SolicitudController::class, 'show'])->name('listaSolicitudes');
 Route::post('/agregarCarrito',[App\Http\Controllers\ElementosSolicitudController::class, 'store'])->name('agregarCarrito'); 
+Route::POST('/GuardarElementoCarrito',[App\Http\Controllers\ElementosSolicitudController::class, 'GuardarElementoCarrito'])->name('GuardarElementoCarrito'); 
+
 Route::post('/eliminarSolicitud',[App\Http\Controllers\SolicitudController::class, 'destroy'])->name('eliminarSolicitud');//eliminar solicitud y sus elementos
 Route::get('/eliminarElementoSolicitud',[App\Http\Controllers\SolicitudController::class, 'eliminarElementoSolicitud'])->name('eliminarElementoSolicitud');
 Route::post('/actualizarCarrito',[App\Http\Controllers\SolicitudController::class, 'actualizarCarrito'])->name('actualizarCarrito');
@@ -88,6 +90,8 @@ Route::GET('/destroyElementoSolicitud',[App\Http\Controllers\AprobacionControlle
 Route::get('/listaEntregaArticulos',[App\Http\Controllers\EntregaArticuloController::class, 'index'])->name('listaEntregaArticulos');
 Route::get('/entregaArticulos/{idSolicitud}/',[App\Http\Controllers\EntregaArticuloController::class, 'show'])->name('entregaArticulos');
 Route::post('/eliminarArticuloSolicitud',[App\Http\Controllers\EntregaArticuloController::class, 'destroy'])->name('eliminarArticuloSolicitud');
+Route::post('/postergarArticuloSolicitud',[App\Http\Controllers\EntregaArticuloController::class, 'postergar'])->name('postergarArticuloSolicitud');
+
 Route::post('/entregarSolicitud',[App\Http\Controllers\EntregaArticuloController::class, 'entregarSolicitud'])->name('entregarSolicitud');
 
 

@@ -265,7 +265,7 @@ class SolicitudController extends Controller
 
         $userId=Auth::user()->id;
         $totales=DB::table('elementoscarrito')->selectRaw('id_solicitud, SUM(total) AS Total')->groupByRaw('id_solicitud')->get();
-
+        $totalesInd="";
         foreach ($totales as $total) {
             $totalesInd[$total->id_solicitud]=$total->Total;
         }
