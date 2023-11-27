@@ -56,12 +56,33 @@ class AprobacionController extends Controller
             }
             
         $reglas = SolicitudReglas::get();
+        
 
         foreach ($reglas as $key) {
-            
+            $to=[]; 
             // si la regla coincide, validamos las 3 reglas de articulos EPP, consumibles y refacciones
             if($key->tipo==$solicitud[0]->tipo)
             {
+                // validamos que exista un gerente de planta
+                // llamamos al gerente
+                $gerente= User::where('role','=','GERENTE')->first();
+                if ($gerente == null)
+                    {
+                        $total= Solicitud::where('estado','=','O')
+                        ->where('usuario','=',$userId)
+                        ->get();
+                        return view('solicitud.solicitud',[
+                            'error'=>"Error no existe un usuario con el rol de Gerente Avisa a Compras",
+                            'cantidadCarrito'=>sizeof($total),
+                            'solicitud'=>$total,
+                            'articulosCarrito'=>$solicitud,
+                            'estaciones'=>Estacion::where('estado','=','E')->get(),
+                            'ccs'=>CC::where('estado','=','E')->get(),
+                        ]);
+                    }
+                $gerenteEmail = $gerente['email'];
+                $gerente = $gerente['username'];
+                
                 // validamos si es un supervisor el que necesitamos
                 if($key->aprobador=="SUPER")
                 {
@@ -84,6 +105,18 @@ class AprobacionController extends Controller
                             'ccs'=>CC::where('estado','=','E')->get(),
                         ]);
                     }
+                    $to[]=array('email'=>$supervisorEmail);
+                    Aprobacion::create([
+                        'tipo'=>$solicitud[0]->tipo,
+                        'idSolicitud'=>$request['idSolicitud'],
+                        'idUsuario'=>$solicitud[0]->usuario,
+                        'iDAprobador'=>$supervisor,
+                        'estado'=>'E',
+                        'rol'=>$key->aprobador,
+                    ]);
+                    $mensaje['tipo']=$solicitud[0]->tipo;
+                    $mensaje['idSolicitud']=$request['idSolicitud'];
+                    $mensaje['username']=Auth::user()->username;
                 }
                 // aqui validamos las solicitudes de EPP
                 else
@@ -106,25 +139,27 @@ class AprobacionController extends Controller
                             'ccs'=>CC::where('estado','=','E')->get(),
                         ]);
                     }
+                    foreach ($supervisor as $super) {
+                        $to[]=$super['email'];
+                        // crear aprobacion
+                        Aprobacion::create([
+                            'tipo'=>$solicitud[0]->tipo,
+                            'idSolicitud'=>$request['idSolicitud'],
+                            'idUsuario'=>$solicitud[0]->usuario,
+                            'iDAprobador'=>$super['username'],
+                            'estado'=>'E',
+                            'rol'=>$key->aprobador,
+                        ]);
+                    }
                     $supervisorEmail = $supervisor[0]['email'];
-                    $supervisor = $supervisor[0]['username'];
-                    $mensaje['supervisorEmail']=$supervisorEmail;
+                    $mensaje['tipo']=$solicitud[0]->tipo;
+                    $mensaje['idSolicitud']=$request['idSolicitud'];
+                    $mensaje['username']=Auth::user()->username;
                 }
-
-                // envio de correo supervisor
-                $mensaje['tipo']=$solicitud[0]->tipo;
-                $mensaje['idSolicitud']=$request['idSolicitud'];
-                $mensaje['idSolicitud']=$solicitud[0]->usuario;
-                $mensaje['userMail']=$userMail;
-                $mensaje['username']=Auth::user()->username;
                 // envio de correo
-                Mail::to($supervisorEmail)->queue(new solicitudAprobacion ($mensaje));
-
-
-                // llamamos al gerente
-                $gerente= User::where('role','=','GERENTE')->first();
-                $gerenteEmail = $gerente['email'];
-                $gerente = $gerente['username'];
+                Mail::to($to)->queue(new solicitudAprobacion ($mensaje));
+                    
+                
                 // agregamos aprobacion de gerente para articulos criticos
                 foreach ($solicitud as $key) {
                     // si es critico creamos la aprobacion
@@ -132,8 +167,6 @@ class AprobacionController extends Controller
                         // envio de correo gerente
                         $mensaje['tipo']=$solicitud[0]->tipo;
                         $mensaje['idSolicitud']=$request['idSolicitud'];
-                        $mensaje['idSolicitud']=$solicitud[0]->usuario;
-                        $mensaje['userMail']=$userMail;
                         $mensaje['username']=Auth::user()->username;
                         $mensaje['supervisorEmail']=$gerenteEmail;
                         // envio de correo
@@ -145,27 +178,12 @@ class AprobacionController extends Controller
                             'idUsuario'=>$solicitud[0]->usuario,
                             'iDAprobador'=>$gerente,
                             'estado'=>'E',
+                            'rol'=>'GERENTE',
                         ]);
                         break;
                     }
                 }
-                
-                
-                // agregamos la aprobacion para la solicitud
-                    // crear aprobacion
-                    Aprobacion::create([
-                        'tipo'=>$solicitud[0]->tipo,
-                        'idSolicitud'=>$request['idSolicitud'],
-                        'idUsuario'=>$solicitud[0]->usuario,
-                        'iDAprobador'=>$supervisor,
-                        'estado'=>'E',
-                    ]);
             }
-            // agregamos una segunda validacion para agregar la reglas extras de costo y material critico
-            if($key->tipo=="Critico")
-            {}
-            if($key->tipo=="Costo")
-            {}
         }
         // una vez que se terminan las reglas si todo salio bien pasamos la solicitud y los articulos al siguiente estado y mandamos la notificacion
         Solicitud::where('id', $request['idSolicitud'])
@@ -173,12 +191,7 @@ class AprobacionController extends Controller
         ElementosSolicitud::where('id_solicitud', $request['idSolicitud'])
         ->update(['estado' => 'E']);
 
-        return view('home',[
-            'cantidadCarrito'=>DB::table('elementoscarrito')->where('usuario','=',$userId)
-            ->where('estado','=','O')
-            ->count(),
-            'listaSolicitudes'=>Solicitud::where('usuario','=',$userId)->orderBy('fecha_creacion','asc')->get(),
-        ]);
+        return redirect()->route('home');
 
     }
 
@@ -272,9 +285,10 @@ class AprobacionController extends Controller
     public function aprobarSolicitud(){
         $userId=Auth::user()->username;
         $idSolicitud=request()->id;
-        Aprobacion::where('idSolicitud',$idSolicitud)->where('idAprobador',$userId)->update([
+        Aprobacion::where('idSolicitud',$idSolicitud)->where('rol',Auth::user()->role)->update([
             'estado'=>'A',
-            'fechaAprobacion'=>now()
+            'fechaAprobacion'=>now(),
+            'IdAprobador'=>Auth::user()->username,
         ]);
         $pendientes = Aprobacion::where('idSolicitud',$idSolicitud)->where('estado','E')->get();
         if(!$pendientes->count()>0){
@@ -285,8 +299,7 @@ class AprobacionController extends Controller
             ElementosSolicitud::where('id_solicitud',$idSolicitud)->update([
                 'estado'=>'A'
             ]);
-            
-    
+
             $mensaje=[];
             $solicitudInformacion=Solicitud::where('id',$idSolicitud)->get();
             $isUsuario=$solicitudInformacion[0]['usuario'];

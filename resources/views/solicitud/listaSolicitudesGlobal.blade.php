@@ -32,6 +32,15 @@ Lista de solicitudes
                     </form>
                 </div>
             </div>
+            <div class="col">
+                <div class="container">
+                    <form action="{{route('exportarExcel')}}" method="post" target="_blank">
+                        @csrf
+                        <input type="text" value="{{$listaSolicitudes}}" name="solicitudes" id="solicitudes" class="d-none">
+                        <button type="submit" class="btn btn-success" data-bs-toggle="tooltip" title="Crear Excel"><i class="fa fa-file" aria-hidden="true"></i> Exportar</button>
+                    </form>
+                </div>
+            </div>
             <div class="card-block">
                 <div class="table-responsive">
                     <table id="issue-list-table"
@@ -44,7 +53,7 @@ Lista de solicitudes
                                 <th>Tipo</th>
                                 <th>Detalles</th>
                                 <th>Departamento</th>
-                                <th>Costo</th>
+                                <th>Costo (USD)</th>
                                 <th>Estado</th>
                                 <th>Visualizar</th>
                             </tr>

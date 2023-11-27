@@ -133,7 +133,7 @@
                                 <th>Nombre old</th>
                                 <th>Descripcion</th>
                                 <th>Cantidad</th>
-                                <th>precio</th>
+                                <th>Precio(USD)</th>
                                 <th>CC</th>
                                 <th>Estacion</th>
                                 <th>Comentarios</th>

@@ -61,7 +61,7 @@ Edicion articulo
                             @enderror
                             <option value="">...</option>
                                 <option value="EPP" @if(old('tipo',$articulo->tipo)=="EPP") selected @endif>EPP</option>
-                                <option value="Consumibles"  @if(old('tipo')=="Consumibles") selected @endif>Consumibles</option>
+                                <option value="Consumibles"  @if(old('tipo',$articulo->tipo)=="Consumibles") selected @endif>Consumibles</option>
                             </select>
                         </div>
 
@@ -91,7 +91,7 @@ Edicion articulo
                         </div>
                         <div class="form-group col-6">
                             <label for="precio">Precio(USD)</label>
-                            <input type="number" name="precio" placeholder="Precio" value="{{old('precio',$articulo->precio)}}" required
+                            <input type="number" name="precio" placeholder="Precio" value="{{old('precio',$articulo->precio)}}" required  step="0.01"
                             class="form-control form-txt-primary bg-light shadow-sm @error('precio') is-invalid @else border-0  @enderror">
                             @error('precio')
                                 <span class="invalid-feedback" role="alert">

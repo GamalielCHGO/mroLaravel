@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('idSolicitud');
             $table->string('idUsuario');
             $table->string('idAprobador');
+            $table->string('rol');
             $table->string('estado')->default('P');
             $table->timestamp('fechaAprobacion')->nullable();
             $table->timestamps();

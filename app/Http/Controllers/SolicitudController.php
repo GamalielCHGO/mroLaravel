@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SolicitudExport;
 use App\Models\Aprobacion;
 use App\Models\Departamento;
 use App\Models\Solicitud;
 use App\Models\Estacion;
-use App\Models\Articulo;
 use App\Models\CC;
 use App\Models\ElementosSolicitud;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SolicitudController extends Controller
 {
@@ -131,7 +131,19 @@ class SolicitudController extends Controller
      */
     public function create()
     {
-        //
+        $solicitudes=json_decode(request()->solicitudes,true);
+        $solicitudesArray=[];
+        foreach ($solicitudes as $solicitud) {
+            $solicitudesArray[]=$solicitud['idSolicitud'];
+        }
+       
+        $userId=Auth::user()->id;
+        
+        $collection = collect ($solicitudes);
+
+        $collection->values()->all();
+
+        return Excel::download(new SolicitudExport($solicitudesArray), 'export.xlsx');
     }
 
     /**
@@ -207,13 +219,16 @@ class SolicitudController extends Controller
 
     public function solicitudLectura($idSolicitud)
     {
+        $solicitudes = DB::table('solicitudesusuario')
+        ->groupBy('idSolicitud' , 'idAprobador' , 'estado' , 'created_at' , 'tipo' , 'departamento' , 'detalles' , 'fecha_creacion' , 'fecha_entrega' , 'estadoSolicitud' , 'fechaAprobacion' , 'username')
+        ->where('idSolicitud',$idSolicitud)->get();
         $userId=Auth::user()->id;
-        return view('solicitud.solicitudLectura',[
+        return view('solicitud.solicitudLectura',[ 
             'cantidadCarrito'=>DB::table('elementoscarrito')->where('id_solicitud','=',$idSolicitud)
             ->count(),
             'articulosCarrito'=>DB::table('elementoscarrito')->where('id_solicitud','=',$idSolicitud)->get(),
             'aprobador'=>Aprobacion::where('idSolicitud','=',$idSolicitud)->first(),
-            'solicitudes'=>DB::table('solicitudesusuario')->where('idSolicitud',$idSolicitud)->get(),
+            'solicitudes'=>$solicitudes,
         ]);
     }
 
@@ -265,7 +280,7 @@ class SolicitudController extends Controller
 
         $userId=Auth::user()->id;
         $totales=DB::table('elementoscarrito')->selectRaw('id_solicitud, SUM(total) AS Total')->groupByRaw('id_solicitud')->get();
-        $totalesInd="";
+        $totalesInd=[];
         foreach ($totales as $total) {
             $totalesInd[$total->id_solicitud]=$total->Total;
         }

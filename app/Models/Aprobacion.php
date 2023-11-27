@@ -22,5 +22,6 @@ class Aprobacion extends Model
         'iDAprobador',
         'estado',
         'fecha_aprobacion',
+        'rol',
     ];
 }
