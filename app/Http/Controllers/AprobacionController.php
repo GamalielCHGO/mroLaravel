@@ -285,11 +285,22 @@ class AprobacionController extends Controller
     public function aprobarSolicitud(){
         $userId=Auth::user()->username;
         $idSolicitud=request()->id;
-        Aprobacion::where('idSolicitud',$idSolicitud)->where('rol',Auth::user()->role)->update([
+        // actualizamos la aprobacion de los roles Gerente y EPP
+        $update = Aprobacion::where('idSolicitud',$idSolicitud)->where('rol',Auth::user()->role)->update([
             'estado'=>'A',
             'fechaAprobacion'=>now(),
             'IdAprobador'=>Auth::user()->username,
         ]);
+        if ($update==0)
+        {
+            // actualizamos la aprobacion de los supervisores que pueden tener cualquier rol
+            Aprobacion::where('idSolicitud',$idSolicitud)->where('idAprobador',$userId)->update([
+                'estado'=>'A',
+                'fechaAprobacion'=>now(),
+                'IdAprobador'=>Auth::user()->username,
+            ]);
+        }
+        
         $pendientes = Aprobacion::where('idSolicitud',$idSolicitud)->where('estado','E')->get();
         if(!$pendientes->count()>0){
 

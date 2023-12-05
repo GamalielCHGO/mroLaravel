@@ -25,6 +25,17 @@
                 <strong>Error!! </strong> {{ $error}}
             </div>
         @endisset
+
+        
+        @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-dismissible alert-success background-warning">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>Error!! </strong> {{ $error}}
+            </div>
+        @endforeach
+            
+        @endif
  
 
         <div class="card">
@@ -132,12 +143,13 @@
                                 <th>Nombre</th>
                                 <th>Nombre old</th>
                                 <th>Descripcion</th>
+                                <th>Cant Orig</th>
                                 <th>Cantidad</th>
+                                <th>Ubicacion</th>
                                 <th>Precio(USD)</th>
                                 <th>CC</th>
                                 <th>Estacion</th>
                                 <th>Comentarios</th>
-                                <th>Postergar</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
@@ -155,8 +167,9 @@
                                         {{$item->numero_parte_old}}
                                     </td>
                                     <td>{{$item->descripcion}}</td>
+                                    <td>{{$item->cantidad}}</td>
                                     <td>
-                                        <form action="{{route('actualizarCarrito')}}" method="post">
+                                        <form action="{{route('postergarArticuloSolicitud')}}" method="post">
                                             @csrf
                                             <div class="row">
                                                 <input type="number" name="idElemento" id="idElemento" value={{$item->id}} class="form-control d-none" >
@@ -165,26 +178,18 @@
                                                     <input type="number" name="cantidad" id="cantidad" value={{$item->cantidad}} class="form-control"  required min=1>
                                                 </div>
                                                 <div class="col">
-                                                    <button type="submit" class="btn btn-success" data-bs-toggle="tooltip" title="Actualizar cantidad"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                                                    <button type="submit" class="btn btn-success" data-bs-toggle="tooltip" title="Generar parcial"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                                                 </div>
                                               </div>
                                         </form>
                                     </td>
+                                    <td>{{$item->ubicacion}}</td>
                                     <td>
                                         <label class="form-label">{{$item->precio}}</label>
                                     </td>
                                     <td>{{$item->cc}}</td>
                                     <td>{{$item->estacion}}</td>
                                     <td><div class="container-fluid">{{$item->comentarios}}</div></td>
-                                    <td class="action-icon">
-                                        <form action="{{route('postergarArticuloSolicitud')}}" method="POST">
-                                            @csrf
-                                            <input type="text" name="idSolicitud" id="idSolicitud" value="{{$item->id_solicitud}}" class='d-none'>
-                                            <input type="text" name="idArticulo" id="idArticulo" value="{{$item->id}}" class='d-none'>
-                                            <input type="text" name="ruta" id="ruta" value="solicitud" class='d-none'>
-                                            <button type="submit" class="btn btn-warning"><i class="fa fa-cloud fs-5" aria-hidden="true"></i></button>
-                                        </form>
-                                    </td>
                                     <td class="action-icon">
                                         <form action="{{route('eliminarArticuloSolicitud')}}" method="POST">
                                             @csrf

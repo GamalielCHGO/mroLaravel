@@ -22,7 +22,9 @@
             <div class="row text-center">
                 <h1 class="fs-1">Elementos en el carrito</h1>
             </div>
-            <h3>Datos de solicitud: </h3>
+            <h3>Datos de solicitud: <a class="btn btn-success" href="{{route('descargarPDF',$solicitudes[0]->idSolicitud)}}" target="blank">
+                <i class="icofont icofont-file-pdf fs-5"></i>
+            </a></h3>
             <table class="table table-responsive">
                 <thead class="table-primary">
                     <th>Solicitud</th>

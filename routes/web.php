@@ -66,6 +66,8 @@ Route::post('/eliminarSolicitud',[App\Http\Controllers\SolicitudController::clas
 Route::get('/eliminarElementoSolicitud',[App\Http\Controllers\SolicitudController::class, 'eliminarElementoSolicitud'])->name('eliminarElementoSolicitud');
 Route::post('/actualizarCarrito',[App\Http\Controllers\SolicitudController::class, 'actualizarCarrito'])->name('actualizarCarrito');
 
+Route::get('/descargarPDF/{id}',[App\Http\Controllers\SolicitudController::class, 'descargarPDF'])->name('descargarPDF');
+
 // Creacion de archivo excel
 Route::post('/exportarExcel',[App\Http\Controllers\SolicitudController::class, 'create'])->name('exportarExcel');
 

@@ -132,11 +132,40 @@ class EntregaArticuloController extends Controller
     {
         $request = request();
         $idSolicitud=$request->idSolicitud;
-        // Eliminando elemento
-        ElementosSolicitud::where('id','=',$request->idArticulo)->update([
-            'estado'=>'P'
+        $elementoSolicitud=ElementosSolicitud::where('id','=',$request->idElemento)->first();
+        request()->validate([
+            'cantidad'=>'required|integer|max:'.$elementoSolicitud->cantidad,
         ]);
+        // verificamos si se pospone todo el articulo o solo un parcial
+        if($request->cantidad==$elementoSolicitud->cantidad)
+        {
+            ElementosSolicitud::where('id','=',$request->idElemento)->update([
+                'estado'=>'P'
+            ]);
+            
+        }
+        else
+        {
+            // debemos partir el elemento en las cantidades
+            $nuevo=$elementoSolicitud->cantidad-$request->cantidad;
+            ElementosSolicitud::create([
+                'id_solicitud'=>$elementoSolicitud->id_solicitud,
+                'id_articulo'=>$elementoSolicitud->id_articulo,
+                'cantidad'=>$nuevo,
+                'cc'=>$elementoSolicitud->cc,
+                'estacion'=>$elementoSolicitud->estacion,
+                'comentarios'=>$elementoSolicitud->comentarios,
+                'estado'=>'P'
+            ]);
+            ElementosSolicitud::where('id','=',$request->idElemento)->update([
+                'cantidad'=>$request->cantidad
+            ]);
+        }
         return $this->show($idSolicitud);
+        
+        // Eliminando elemento
+        
+        
     }
     
     public function entregarSolicitud(){

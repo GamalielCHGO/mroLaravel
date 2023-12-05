@@ -9,10 +9,12 @@ use App\Models\Solicitud;
 use App\Models\Estacion;
 use App\Models\CC;
 use App\Models\ElementosSolicitud;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SolicitudController extends Controller
 {
@@ -318,6 +320,16 @@ class SolicitudController extends Controller
             'status'=>'Elemento actualizado',
         ]);
 
+
+    }
+
+    public function descargarPDF($idSolicitud){
+        $solicitudes = DB::table('elementoscarrito')->where('id_solicitud',$idSolicitud)->get()->toArray();
+        $usuario = User::where('id',$solicitudes[0]->usuario)->first()->toArray();
+        $pdf= Pdf::loadView('pdf.solicitudPDF', compact('solicitudes','usuario'));
+        return $pdf->download('archivo.pdf');
+        
+        return 'holi';
 
     }
 

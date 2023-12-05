@@ -76,9 +76,9 @@ class ArticuloController extends Controller
         $request->imagen->move($pathOriginal,$nombre);
 
         $pathOr = explode('mro',$pathOriginal,4);
-        $pathOr="/mro".$pathOr[1];
+        $pathOr=$pathOr[1];
         $pathRe = explode('mro',$pathResize,4);
-        $pathRe="/mro".$pathRe[1];
+        $pathRe=$pathRe[1];
 
         // resize image to new width
         $img = Image::make($pathOriginal.'/'.$nombre)->widen(100);
@@ -163,9 +163,9 @@ class ArticuloController extends Controller
                 $request->imagen->move($pathOriginal,$nombre);
 
                 $pathOr = explode('mro',$pathOriginal,4);
-                $pathOr="/mro".$pathOr[1];
+                $pathOr=$pathOr[1];
                 $pathRe = explode('mro',$pathResize,4);
-                $pathRe="/mro".$pathRe[1];
+                $pathRe=$pathRe[1];
 
                 // resize image to new width
                 $img = Image::make($pathOriginal.'/'.$nombre)->widen(100);
