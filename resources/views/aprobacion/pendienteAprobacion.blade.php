@@ -52,18 +52,25 @@
                                         <form action="{{route('aprobarSolicitud')}}" method="post">
                                             @csrf
                                             <input type="text" name="id" id="id" value="{{$item->idSolicitud}}" class="d-none">
-                                            <button type="submit" class="btn btn-success alert-success-msg m-b-10">
-                                                <i class="icofont icofont-tick-mark fs-5"></i>
-                                            </button>    
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="comentarios" name="comentarios" placeholder="Comentarios" required>
+                                                <button type="submit" class="btn btn-success alert-success-msg m-b-10">
+                                                    <i class="icofont icofont-tick-mark fs-5"></i>
+                                                </button>    
+                                            </div>
                                         </form>
                                     </td>
                                     <td>
                                         <form action="{{route('rechazarSolicitud')}}" method="post">
                                             @csrf
                                             <input type="text" name="id" id="id" value="{{$item->idSolicitud}}" class="d-none">
-                                            <button type="submit" class="btn btn-danger alert-danger-msg m-b-10">
-                                                <i class="icofont icofont-close fs-5"></i>
-                                            </button>    
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="comentarios" name="comentarios" placeholder="Comentarios" required>
+                                                <button type="submit" class="btn btn-danger alert-danger-msg m-b-10">
+                                                    <i class="icofont icofont-close fs-5"></i>
+                                                </button> 
+                                            </div>
+                                               
                                         </form>
                                     </td>
                                 </tr>
@@ -88,7 +95,7 @@
     tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-body model-container">
+                <div class="modal-body model-container" >
                     <button type="button" class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close">
@@ -104,7 +111,7 @@
                                 <div class="table-content">
                                     <div class="project-table">
                                         <table id="e-product-list"
-                                            class="table table-striped dt-responsive nowrap" style="width: 150%;">
+                                            class="table table-striped dt-responsive nowrap">
                                             <thead>
                                                 <tr>
                                                     <th>Producto</th>

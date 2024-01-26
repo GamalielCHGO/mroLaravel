@@ -127,6 +127,22 @@ Edicion articulo
                             @enderror
                         </div>
 
+
+                        <div class="form-group col-6">
+                            <label for="categoria">Obsoleto</label>
+                            <select type="text" name="obsoleto" placeholder="Material Obsoleto" value="{{old('obsoleto')}}" required
+                            class="form-control form-txt-primary bg-light shadow-sm @error('obsoleto') is-invalid @else border-0  @enderror">
+                                <option value="">El articulo es obsoleto?</option>
+                                <option value="Y" @if(old('obsoleto',$articulo->obsoleto)=="Y") selected @endif>Si</option>
+                                <option value="N" @if(old('obsoleto',$articulo->obsoleto)=="N") selected @endif>No</option>
+                            </select>
+                            @error('obsoleto')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{$message}}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
                         <div class="form-group col-6">
                             <label for="inventario">Inventario</label>
                             <input type="number" name="inventario" placeholder="Inventario" value="{{old('inventario',$articulo->inventario)}}" required

@@ -28,6 +28,7 @@ return new class extends Migration
             $table->float('precio',8,2);
             $table->integer('inventario');
             $table->string('critico')->default('N');
+            $table->string('obsoleto')->default('N');
             $table->timestamps();
             
         });

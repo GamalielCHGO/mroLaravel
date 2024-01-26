@@ -126,6 +126,21 @@ Crear articulo
                         </div>
 
                         <div class="form-group col-6">
+                            <label for="categoria">Obsoleto</label>
+                            <select type="text" name="obsoleto" placeholder="Material Obsoleto" value="{{old('obsoleto')}}" required
+                            class="form-control form-txt-primary bg-light shadow-sm @error('obsoleto') is-invalid @else border-0  @enderror">
+                                <option value="">El articulo es obsoleto?</option>
+                                <option value="Y">Si</option>
+                                <option value="N">No</option>
+                            </select>
+                            @error('obsoleto')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{$message}}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group col-6">
                             <label for="inventario">Inventario</label>
                             <input type="number" name="inventario" placeholder="Inventario" value="{{old('inventario')}}" required
                             class="form-control form-txt-primary bg-light shadow-sm @error('inventario') is-invalid @else border-0  @enderror">

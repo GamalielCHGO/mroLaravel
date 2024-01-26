@@ -114,7 +114,7 @@ Crear solicitud
                                     <option value="">...</option>
                                     <option value="Equipo a cambio">Equipo a cambio</option>
                                     <option value="Nuevo ingreso">Nuevo ingreso</option>
-                                    <option value="Reposicion equipo">Reposicion equipo</option>
+                                    <option value="Reposicion equipo">Sin Cambio/Descuento</option>
                                     <option value="Visita corporativa">Visita corporativa</option>
                                 </select>
                             </div>

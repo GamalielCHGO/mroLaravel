@@ -78,6 +78,7 @@ Route::get('/listaSolicitudesGlobal',[App\Http\Controllers\SolicitudController::
 Route::post('/listaSolicitudesGlobalFecha',[App\Http\Controllers\SolicitudController::class, 'listaSolicitudesGlobalFecha'])->name('listaSolicitudesGlobalFecha');
 
 
+
 // aprobaciones
 // este es el flujo de validacion de aprobaciones
 Route::post('/solicitarAprobacion',[App\Http\Controllers\AprobacionController::class, 'index'])->name('solicitarAprobacion');

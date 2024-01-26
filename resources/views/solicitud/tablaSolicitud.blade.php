@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="container text-center">
-                <a href="{{route('crearSolicitud')}}" class="btn btn-success text-center" >Regresar</a>
+                <a href="{{route('crearSolicitud')}}" class="btn btn-success text-center" >Continuar Solicitud</a>
             </div>
             <div class="card-block">
                 <div class="table-responsive">

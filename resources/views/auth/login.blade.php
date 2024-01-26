@@ -15,11 +15,11 @@
                     </div>
                 </div>
                 <div class="mb-3 form-primary">
-                    <input id="email" type="text" 
-                    class="form-control @error('email') is-invalid @enderror" 
-                    name="email" value="{{ old('email') }}" 
-                    required autocomplete="email" autofocus placeholder="Usuario">
-                    @error('email')
+                    <input id="sap" type="text" 
+                    class="form-control @error('sap') is-invalid @enderror" 
+                    name="sap" value="{{ old('sap') }}" 
+                    required autocomplete="sap" autofocus placeholder="Numero SAP">
+                    @error('sap')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

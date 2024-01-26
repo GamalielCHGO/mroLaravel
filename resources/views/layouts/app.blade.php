@@ -347,6 +347,15 @@
                                         <span class="pcoded-mtext">Aprobaciones</span>
                                     </a>
                                 </li>
+
+                                @can('ehs')
+                                    <li class=" {{ request()->routeIs('listaSolicitudesGlobal') ? 'active' : '' }}">
+                                        <a href="{{ route('listaSolicitudesGlobal') }}">
+                                            <span class="pcoded-micon"><i class="icofont icofont-tick-boxed"></i></span>
+                                            <span class="pcoded-mtext">EHS Solicitudes</span>
+                                        </a>
+                                    </li>   
+                                @endcan
                                 
                                 <li class="">
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

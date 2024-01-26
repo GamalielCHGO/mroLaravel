@@ -149,6 +149,7 @@
                                 <th>Precio(USD)</th>
                                 <th>CC</th>
                                 <th>Estacion</th>
+                                <th>Obsoleto</th>
                                 <th>Comentarios</th>
                                 <th>Eliminar</th>
                             </tr>
@@ -189,6 +190,7 @@
                                     </td>
                                     <td>{{$item->cc}}</td>
                                     <td>{{$item->estacion}}</td>
+                                    <td>{{$item->obsoleto}}</td>
                                     <td><div class="container-fluid">{{$item->comentarios}}</div></td>
                                     <td class="action-icon">
                                         <form action="{{route('eliminarArticuloSolicitud')}}" method="POST">

@@ -176,6 +176,8 @@ class SolicitudController extends Controller
         ]);
     }
 
+    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -243,13 +245,26 @@ class SolicitudController extends Controller
         foreach ($totales as $total) {
             $totalesInd[$total->id_solicitud]=$total->Total;
         }
-
-        $solicitudes=DB::table('solicitudesusuario')
-        ->select('idSolicitud','username','fecha_creacion','tipo','detalles','departamento','estado')
-        ->groupBy('idSolicitud','username','fecha_creacion','tipo','detalles','departamento','estado')
-        ->orderBy('fecha_creacion','desc')
-        ->limit(100)
-        ->get();
+        if($userId=Auth::user()->role=="EHS")
+        {
+            $solicitudes=DB::table('solicitudesusuario')
+            ->select('idSolicitud','username','fecha_creacion','tipo','detalles','departamento','estado')
+            ->where('tipo','EPP')
+            ->groupBy('idSolicitud','username','fecha_creacion','tipo','detalles','departamento','estado')
+            ->orderBy('fecha_creacion','desc')
+            ->limit(100)
+            ->get();
+        }
+        else
+        {
+            $solicitudes=DB::table('solicitudesusuario')
+            ->select('idSolicitud','username','fecha_creacion','tipo','detalles','departamento','estado')
+            ->groupBy('idSolicitud','username','fecha_creacion','tipo','detalles','departamento','estado')
+            ->orderBy('fecha_creacion','desc')
+            ->limit(100)
+            ->get();
+        }
+        
 
         return view ('solicitud.listaSolicitudesGlobal',[
             'cantidadCarrito'=>DB::table('elementoscarrito')->where('usuario','=',$userId)
@@ -273,12 +288,23 @@ class SolicitudController extends Controller
         $fechaIV=explode('/',$fechaIO);
         $fechaF=$fechaFV['2'].'-'.$fechaFV['0'].'-'.$fechaFV['1'];
         $fechaI=$fechaIV['2'].'-'.$fechaIV['0'].'-'.$fechaIV['1'];
-
-        $solicitudes=DB::table('solicitudesusuario')
+        if($userId=Auth::user()->role=="EHS")
+        {
+            $solicitudes=DB::table('solicitudesusuario')
+            ->select('idSolicitud','username','fecha_creacion','tipo','detalles','departamento','estado')
+            ->groupBy('idSolicitud','username','fecha_creacion','tipo','detalles','departamento','estado')
+            ->whereBetween('fecha_creacion',[$fechaF." 00:00:00",$fechaI." 23:59:59"])
+            ->where('tipo','EPP')
+            ->groupBy('idSolicitud','username')->orderBy('fecha_creacion','desc')->get();
+        }
+        else
+        {
+            $solicitudes=DB::table('solicitudesusuario')
         ->select('idSolicitud','username','fecha_creacion','tipo','detalles','departamento','estado')
         ->groupBy('idSolicitud','username','fecha_creacion','tipo','detalles','departamento','estado')
         ->whereBetween('fecha_creacion',[$fechaF." 00:00:00",$fechaI." 23:59:59"])
         ->groupBy('idSolicitud','username')->orderBy('fecha_creacion','desc')->get();
+        }
 
         $userId=Auth::user()->id;
         $totales=DB::table('elementoscarrito')->selectRaw('id_solicitud, SUM(total) AS Total')->groupByRaw('id_solicitud')->get();
@@ -298,6 +324,7 @@ class SolicitudController extends Controller
             
         ]);
     }
+
 
     public function actualizarCarrito(){
         

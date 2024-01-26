@@ -28,5 +28,6 @@ class Articulo extends Model
         'inventario',
         'critico',
         'categoria',
+        'obsoleto',
     ];
 }
