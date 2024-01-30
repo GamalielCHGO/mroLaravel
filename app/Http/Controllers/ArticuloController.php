@@ -190,6 +190,7 @@ class ArticuloController extends Controller
                 'ubicacion' => $request['ubicacion'],
                 'precio' => $request['precio'],
                 'critico' => $request['critico'],
+                'obsoleto' => $request['obsoleto'],
                 'categoria' => $request['categoria'],
                 'inventario' => $request['inventario'],
                 'ruta' => $rutaOr,

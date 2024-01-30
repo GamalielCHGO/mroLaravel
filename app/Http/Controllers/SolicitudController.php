@@ -224,7 +224,7 @@ class SolicitudController extends Controller
     public function solicitudLectura($idSolicitud)
     {
         $solicitudes = DB::table('solicitudesusuario')
-        ->groupBy('idSolicitud' , 'idAprobador' , 'estado' , 'created_at' , 'tipo' , 'departamento' , 'detalles' , 'fecha_creacion' , 'fecha_entrega' , 'estadoSolicitud' , 'fechaAprobacion' , 'username')
+        ->groupBy('idSolicitud' , 'idAprobador' , 'estado' , 'created_at' , 'tipo','comentarios' , 'departamento' , 'detalles' , 'fecha_creacion' , 'fecha_entrega' , 'estadoSolicitud' , 'fechaAprobacion' , 'username')
         ->where('idSolicitud',$idSolicitud)->get();
         $userId=Auth::user()->id;
         return view('solicitud.solicitudLectura',[ 

@@ -79,6 +79,7 @@
                     <th>Estado</th>
                     <th>Fecha aprobacion</th>
                     <th>Fecha solicitud</th>
+                    <th>Comentarios</th>
                 </thead>
                 <tbody>
                     @foreach ($solicitudes as $item)
@@ -109,6 +110,7 @@
                         @endswitch
                             <td>{{$item->fechaAprobacion}}</td>
                             <td>{{$item->created_at}}</td>
+                            <td>{{$item->comentarios}}</td>
                         </tr>
                     @endforeach
                 </tbody>

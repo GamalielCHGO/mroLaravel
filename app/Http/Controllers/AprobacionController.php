@@ -288,6 +288,7 @@ class AprobacionController extends Controller
         // actualizamos la aprobacion de los roles Gerente y EPP
         $update = Aprobacion::where('idSolicitud',$idSolicitud)->where('rol',Auth::user()->role)->update([
             'estado'=>'A',
+            'comentarios' => request()->comentarios,
             'fechaAprobacion'=>now(),
             'IdAprobador'=>Auth::user()->username,
         ]);
@@ -296,11 +297,11 @@ class AprobacionController extends Controller
             // actualizamos la aprobacion de los supervisores que pueden tener cualquier rol
             Aprobacion::where('idSolicitud',$idSolicitud)->where('idAprobador',$userId)->update([
                 'estado'=>'A',
+                'comentarios' => request()->comentarios,
                 'fechaAprobacion'=>now(),
                 'IdAprobador'=>Auth::user()->username,
             ]);
         }
-        
         $pendientes = Aprobacion::where('idSolicitud',$idSolicitud)->where('estado','E')->get();
         if(!$pendientes->count()>0){
 
@@ -342,14 +343,15 @@ class AprobacionController extends Controller
     public function rechazarSolicitud(){
         $idSolicitud=request()->id;
         Solicitud::where('id',$idSolicitud)->update([
-            'estado'=>'R'
+            'estado'=>'R',
         ]);
         ElementosSolicitud::where('id_solicitud',$idSolicitud)->update([
             'estado'=>'R'
         ]);
         Aprobacion::where('idSolicitud',$idSolicitud)->update([
             'estado'=>'R',
-            'fechaAprobacion'=>now()
+            'fechaAprobacion'=>now(),
+            'comentarios' => request()->comentarios,
         ]);
 
         $mensaje=[];
