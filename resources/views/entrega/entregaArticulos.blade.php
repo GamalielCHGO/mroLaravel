@@ -97,6 +97,7 @@
                     <th>Estado</th>
                     <th>Fecha aprobacion</th>
                     <th>Fecha solicitud</th>
+                    <th>Comentarios</th>
                 </thead>
                 <tbody>
                     @foreach ($solicitudes as $item)
@@ -127,6 +128,7 @@
                         @endswitch
                             <td>{{$item->fechaAprobacion}}</td>
                             <td>{{$item->created_at}}</td>
+                            <td>{{$item->comentarios}}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -150,6 +152,7 @@
                                 <th>CC</th>
                                 <th>Estacion</th>
                                 <th>Obsoleto</th>
+                                <th>Critico</th>
                                 <th>Comentarios</th>
                                 <th>Eliminar</th>
                             </tr>
@@ -191,6 +194,7 @@
                                     <td>{{$item->cc}}</td>
                                     <td>{{$item->estacion}}</td>
                                     <td>{{$item->obsoleto}}</td>
+                                    <td>{{$item->critico}}</td>
                                     <td><div class="container-fluid">{{$item->comentarios}}</div></td>
                                     <td class="action-icon">
                                         <form action="{{route('eliminarArticuloSolicitud')}}" method="POST">
